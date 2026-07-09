@@ -94,10 +94,19 @@ function initNav() {
     });
 
     links.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
             menu.classList.remove('is-open');
             toggle.classList.remove('is-open');
             document.body.style.overflow = '';
+            // Drive the scroll explicitly instead of the native anchor jump:
+            // closing the mobile overlay unlocks body scroll in the same tick,
+            // and racing that against the browser's own hash-jump occasionally
+            // dropped the navigation on first tap from the very top of the page.
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
     });
 }
