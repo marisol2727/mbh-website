@@ -146,12 +146,19 @@ ul { list-style: none; }
 .nav-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 6px;
-    background: none;
-    border: none;
+    width: 44px; height: 44px;
+    background: rgba(10, 10, 12, 0.45);
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     cursor: pointer;
     padding: 6px;
     z-index: 102;
+    flex-shrink: 0;
 }
 .nav-toggle span {
     width: 26px; height: 1.5px;
@@ -836,7 +843,9 @@ ul { list-style: none; }
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
 }
-.screen-inner:has(.is-video) { grid-template-columns: 340px 1fr; }
+@media (min-width: 861px) {
+    .screen-inner:has(.is-video) { grid-template-columns: 340px 1fr; }
+}
 .screen-poster.is-empty {
     display: flex;
     align-items: center;
