@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민병훈 MIN BYUNG HUN — 영화감독 · 미디어아티스트 공식 홈페이지</title>
+    <meta name="description" content="치유와 위로의 시네아스트 민병훈 감독 공식 홈페이지. 필모그래피, 수상내역, 미디어아트, 아카이브.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== Navigation ===== -->
+    <nav id="nav" class="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <span class="nav-logo-kr">민병훈</span>
+                <span class="nav-logo-en">MIN BYUNG HUN</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link active">홈</a></li>
+                <li><a href="#about" class="nav-link">감독</a></li>
+                <li><a href="#films" class="nav-link">필모그래피</a></li>
+                <li><a href="#awards" class="nav-link">수상</a></li>
+                <li><a href="#media-art" class="nav-link">미디어아트</a></li>
+                <li><a href="#books" class="nav-link">저서·방송</a></li>
+                <li><a href="#videos" class="nav-link">영상</a></li>
+                <li><a href="#archive" class="nav-link">아카이브</a></li>
+                <li><a href="#contact" class="nav-link">컨택트</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== Hero : Ken Burns Motion ===== -->
+    <header id="hero" class="hero">
+        <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide is-active" style="background-image:url('https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%AF%BC11.jpg')"></div>
+            <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%AF%BC22.jpg')"></div>
+            <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%AF%BC7.jpg')"></div>
+            <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%AF%BC25.jpg')"></div>
+            <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%AF%BC26.jpg')"></div>
+        </div>
+        <div class="hero-vignette"></div>
+        <div class="hero-grain"></div>
+
+        <div class="hero-content">
+            <p class="hero-eyebrow">FILM DIRECTOR &nbsp;·&nbsp; MEDIA ARTIST</p>
+            <h1 class="hero-title">민병훈</h1>
+            <p class="hero-subtitle">MIN BYUNG HUN</p>
+            <p class="hero-tagline">치유와 위로의 시네마 &mdash; <em>Eternal Healing Cinema</em></p>
+            <div class="hero-laurels">
+                <span>토리노국제영화제 대상</span>
+                <span class="dot"></span>
+                <span>카를로비바리 비평가상</span>
+                <span class="dot"></span>
+                <span>테살로니키 은상</span>
+                <span class="dot"></span>
+                <span>전주국제영화제 감독상</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#films" class="btn btn-gold">필모그래피 보기</a>
+                <a href="#archive" class="btn btn-ghost">아카이브</a>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <span class="hero-scroll-label">SCROLL</span>
+            <span class="hero-scroll-line"></span>
+        </div>
+
+        <div class="hero-progress" id="heroProgress"></div>
+    </header>
+
+    <!-- ===== Festival Marquee ===== -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>TORINO FILM FESTIVAL</span><i>✦</i>
+            <span>KARLOVY VARY IFF</span><i>✦</i>
+            <span>THESSALONIKI IFF</span><i>✦</i>
+            <span>BUSAN IFF</span><i>✦</i>
+            <span>JEONJU IFF</span><i>✦</i>
+            <span>COTTBUS FILM FESTIVAL</span><i>✦</i>
+            <span>MONTREAL WORLD FILM FESTIVAL</span><i>✦</i>
+            <span>SEOUL INDEPENDENT FILM FESTIVAL</span><i>✦</i>
+            <span>TORINO FILM FESTIVAL</span><i>✦</i>
+            <span>KARLOVY VARY IFF</span><i>✦</i>
+            <span>THESSALONIKI IFF</span><i>✦</i>
+            <span>BUSAN IFF</span><i>✦</i>
+            <span>JEONJU IFF</span><i>✦</i>
+            <span>COTTBUS FILM FESTIVAL</span><i>✦</i>
+            <span>MONTREAL WORLD FILM FESTIVAL</span><i>✦</i>
+            <span>SEOUL INDEPENDENT FILM FESTIVAL</span><i>✦</i>
+        </div>
+    </div>
+
+    <!-- ===== About ===== -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">THE DIRECTOR</p>
+                <h2 class="section-title">영화로 생명을,<br>삶을, 예술을 어루만지다</h2>
+            </div>
+            <div class="about-grid">
+                <figure class="about-photo reveal">
+                    <img src="https://koreafilmfest.com/wp-content/uploads/2024/01/Byung-hu.def_.jpg" alt="민병훈 감독 초상" loading="lazy">
+                    <figcaption>MIN BYUNG HUN, b. 1969</figcaption>
+                </figure>
+                <div class="about-body">
+                    <p class="about-lead reveal">
+                        민병훈은 러시아 국립영화대학(VGIK)에서 촬영을 전공하고 학사·석사 학위를 받은 뒤,
+                        1998년 타지키스탄에서 촬영한 데뷔작 <strong>&lt;벌이 날다&gt;</strong>로
+                        토리노국제영화제 대상·비평가상·관객상을 석권하며 세계 영화계에 이름을 알렸다.
+                    </p>
+                    <p class="reveal">
+                        이후 &lt;괜찮아, 울지마&gt;, &lt;포도나무를 베어라&gt;, &lt;터치&gt;, &lt;사랑이 이긴다&gt;로 이어지는
+                        작품 세계를 통해 상처받은 사람들을 향한 응시와 위로를 스크린에 담아왔다.
+                        자본으로부터 독립된 창작을 고집하는 그는 &lt;황제&gt;, &lt;기적&gt;, &lt;팬텀&gt;으로 이어지는
+                        '생명 3부작'을 완성했고, 아내와 사별한 뒤 아들 시우와 함께 제주로 이주하여
+                        자연과 삶, 죽음과 애도를 기록하는 <strong>'이터널 힐링 시네마'</strong>의 길을 걷고 있다.
+                    </p>
+                    <p class="reveal">
+                        2023년 아들과 함께한 자전적 다큐멘터리 &lt;약속&gt;은 부산국제영화제 월드 프리미어 이후
+                        전국 극장과 공동체 상영으로 관객을 만났으며, 2022년부터는 미디어아트 작가로도 활동하며
+                        서울과 제주의 미술관에서 개인전을 이어가고 있다.
+                    </p>
+                    <blockquote class="about-quote reveal">
+                        &ldquo;나는 내 마음속의 자유, 해방감을 느끼며 창작하고 싶다.
+                        내가 당당한 이유는 자본으로부터 100% 독립한 영화인이기 때문이다.&rdquo;
+                    </blockquote>
+                    <div class="about-stats reveal">
+                        <div class="stat">
+                            <span class="stat-num" data-count="11">0</span>
+                            <span class="stat-label">장편 영화</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num" data-count="12">0</span>
+                            <span class="stat-label">국제영화제 수상</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num" data-count="5">0</span>
+                            <span class="stat-label">출간 저서</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num" data-count="28">0</span>
+                            <span class="stat-label">영화 인생 (년)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-facts reveal">
+                <div class="fact"><span>출생</span>1969년 6월 2일</div>
+                <div class="fact"><span>학력</span>러시아 국립영화대학(VGIK) 촬영 전공 학사·석사</div>
+                <div class="fact"><span>거점</span>제주도 — 자연을 기록하며 작업</div>
+                <div class="fact"><span>가족</span>아들 민시우 (2012년생, 어린이 시인)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Featured Films ===== -->
+    <section id="films" class="section films">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">SELECTED WORKS</p>
+                <h2 class="section-title">대표작</h2>
+            </div>
+
+            <div class="feature-list">
+                <article class="feature reveal">
+                    <div class="feature-media">
+                        <img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%B2%8C%EC%9D%B4%20%EB%82%A0%EB%8B%A4%20%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="벌이 날다 포스터" loading="lazy">
+                    </div>
+                    <div class="feature-body">
+                        <p class="feature-year">1998 &nbsp;·&nbsp; 데뷔작</p>
+                        <h3 class="feature-title">벌이 날다 <em>The Flight of the Bee</em></h3>
+                        <p class="feature-desc">
+                            타지키스탄의 작은 마을, 굴욕에 맞서 우물을 파는 한 교사의 이야기.
+                            잠셰드 우스마노프와 공동 연출한 흑백 데뷔작으로,
+                            토리노국제영화제 대상·비평가상·관객상을 동시에 수상하며
+                            세계 영화계가 주목하는 신예의 탄생을 알렸다.
+                        </p>
+                        <ul class="feature-awards">
+                            <li>토리노국제영화제 대상 · 비평가상 · 관객상</li>
+                            <li>테살로니키국제영화제 은상</li>
+                            <li>코트부스영화제 예술공헌상 · 아나파영화제 감독상</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="feature feature-rev reveal">
+                    <div class="feature-media">
+                        <img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EA%B4%9C%EC%B0%AE%EC%95%84%20%EC%9A%B8%EC%A7%80%EB%A7%88.jpg" alt="괜찮아, 울지마 포스터" loading="lazy">
+                    </div>
+                    <div class="feature-body">
+                        <p class="feature-year">2001</p>
+                        <h3 class="feature-title">괜찮아, 울지마 <em>Let's Not Cry!</em></h3>
+                        <p class="feature-desc">
+                            고단한 삶을 살아가는 이들을 향한 따뜻한 위로.
+                            감독·각본·촬영을 모두 맡아 완성한 두 번째 장편으로,
+                            부산국제영화제 파노라마 부문에 초청되고
+                            카를로비바리국제영화제에서 특별언급상과 비평가상을 받았다.
+                        </p>
+                        <ul class="feature-awards">
+                            <li>카를로비바리국제영화제 특별언급상 · 비평가상</li>
+                            <li>부산국제영화제 파노라마 초청</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="feature reveal">
+                    <div class="feature-media">
+                        <img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%ED%8F%AC%EB%8F%84%EB%82%98%EB%AC%B4%EB%A5%BC%20%EB%B2%A0%EC%96%B4%EB%9D%BC%20%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="포도나무를 베어라 포스터" loading="lazy">
+                    </div>
+                    <div class="feature-body">
+                        <p class="feature-year">2006</p>
+                        <h3 class="feature-title">포도나무를 베어라 <em>Pruning the Grapevine</em></h3>
+                        <p class="feature-desc">
+                            사제의 길과 사랑 사이에서 흔들리는 신학생의 내면 풍경.
+                            세르게이 파라자노프의 회화적 미학이 스민 영상시(詩)로,
+                            부산국제영화제 PPP 코닥상을 수상하고 카를로비바리 경쟁 부문과
+                            몬트리올국제영화제에 초청되었다.
+                        </p>
+                        <ul class="feature-awards">
+                            <li>부산국제영화제 PPP 코닥상</li>
+                            <li>카를로비바리국제영화제 경쟁부문 초청</li>
+                            <li>몬트리올국제영화제 초청</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="feature feature-rev reveal">
+                    <div class="feature-media">
+                        <img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%95%BD%EC%86%8D_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="약속 포스터" loading="lazy">
+                    </div>
+                    <div class="feature-body">
+                        <p class="feature-year">2023 &nbsp;·&nbsp; 이터널 힐링 시네마</p>
+                        <h3 class="feature-title">약속 <em>Promise</em></h3>
+                        <p class="feature-desc">
+                            엄마와 이별한 아홉 살 시우는 아빠와 약속한다.
+                            "1년 뒤에 엄마가 있는 곳에 다녀오자"고.
+                            그리움을 시로 눌러 담은 1년의 기록.
+                            민병훈 필모그래피에서 가장 사적이고 내밀한 11번째 장편으로,
+                            제28회 부산국제영화제에서 월드 프리미어로 공개되었다.
+                        </p>
+                        <ul class="feature-awards">
+                            <li>제28회 부산국제영화제 와이드 앵글 월드 프리미어</li>
+                            <li>2023년 11월 1일 전국 개봉 · 공동체 상영</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <!-- ===== Full Filmography Grid ===== -->
+            <div class="filmo-head reveal">
+                <p class="section-eyebrow">COMPLETE FILMOGRAPHY</p>
+                <h2 class="section-title">전체 필모그래피</h2>
+                <div class="filmo-filters" id="filmoFilters">
+                    <button class="filter-btn is-active" data-filter="all">전체</button>
+                    <button class="filter-btn" data-filter="feature">장편</button>
+                    <button class="filter-btn" data-filter="short">단편</button>
+                    <button class="filter-btn" data-filter="artist">아티스트 시리즈</button>
+                    <button class="filter-btn" data-filter="docu">다큐멘터리</button>
+                </div>
+            </div>
+
+            <div class="filmo-grid" id="filmoGrid">
+                <article class="poster-card reveal" data-cat="docu feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%95%BD%EC%86%8D_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="약속 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2023</span><h4>약속</h4><p>자전적 다큐멘터리 · BIFF 월드 프리미어</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="images/phantom_poster.jpg" alt="팬텀 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2022</span><h4>팬텀</h4><p>생명 3부작 완결편</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EA%B8%B0%EC%A0%81_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="기적 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2020</span><h4>기적</h4><p>생명 3부작 · 제주 촬영</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap poster-video"><a class="yt-lite" href="https://www.youtube.com/watch?v=74tovv8Kr-A" data-yt="74tovv8Kr-A" aria-label="영원과 하루 영상 재생"><img src="https://img.youtube.com/vi/74tovv8Kr-A/hqdefault.jpg" alt="영원과 하루 영상" loading="lazy"><span class="play"></span></a></div>
+                    <div class="poster-info"><span class="poster-year">2020</span><h4>영원과 하루</h4><p>제주의 자연 · 단편</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature artist">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%ED%99%A9%EC%A0%9C_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="황제 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2017</span><h4>황제</h4><p>피아니스트 김선욱 · BIFF 월드 프리미어</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short artist">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%84%A4%EA%B3%84%EC%9E%90_%ED%8F%AC%EC%8A%A4%ED%84%B0.png" alt="설계자 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2017</span><h4>설계자</h4><p>네마프국제영화제 개막작</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="docu short">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%8B%9C%ED%99%94%EA%B3%B5%EC%A1%B4_%ED%8F%AC%EC%8A%A4%ED%84%B0.png" alt="시화공존 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2016</span><h4>시화공존</h4><p>환경 다큐 · 서울환경영화제</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="artist docu">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%ED%8E%91%EC%A0%95%EC%A7%80%EC%97%90%EB%8A%94%20%ED%8E%91%EC%A0%95%EC%A7%80%EC%97%90%EB%8B%A4.jpg" alt="펑정지에는 펑정지에다 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2016</span><h4>펑정지에는 펑정지에다</h4><p>중국 현대미술 거장 펑정지에 · 갤러리 필름</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%82%AC%EB%9E%91%EC%9D%B4%20%EC%9D%B4%EA%B8%B4%EB%8B%A4.jpg" alt="사랑이 이긴다 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2015</span><h4>사랑이 이긴다</h4><p>함부르크 · 상하이영화제 초청</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="artist short">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EA%B0%90%EA%B0%81%EC%9D%98%20%EA%B2%BD%EB%A1%9C_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="감각의 경로 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2015</span><h4>감각의 경로</h4><p>화가 김남표 · 아티스트 시리즈</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%84%88%EB%A5%BC%20%EB%B6%80%EB%A5%B4%EB%A7%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="너를 부르마 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2014</span><h4>너를 부르마</h4><p>전주국제영화제 초청</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short docu">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%B6%80%EC%97%89%EC%9D%B4%EC%9D%98%20%EB%88%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.png" alt="부엉이의 눈 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2014</span><h4>부엉이의 눈</h4><p>서울환경영화제</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%ED%84%B0%EC%B9%98%ED%8F%AC%EC%8A%A4%ED%84%B0.webp" alt="터치 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2012</span><h4>터치</h4><p>마리클레르 특별상 · 영상자료원 올해의 영화</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EA%B0%80%EB%A9%B4%EA%B3%BC%20%EA%B1%B0%EC%9A%B8.png" alt="가면과 거울 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2012</span><h4>가면과 거울</h4><p>전주국제영화제 감독상 · 백영수 화백</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short docu">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%95%84%20%EA%B5%B4%EC%97%85%EB%8F%84_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="아! 굴업도 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2012</span><h4>아! 굴업도</h4><p>환경 단편</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%85%B8%EC%8A%A4%ED%85%94%EC%A7%80%EC%95%84_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="노스텔지아 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2010</span><h4>노스텔지아</h4><p>아르메니아 여행 중 제작 · 그린 영화</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%ED%8F%AC%EB%8F%84%EB%82%98%EB%AC%B4%EB%A5%BC%20%EB%B2%A0%EC%96%B4%EB%9D%BC%20%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="포도나무를 베어라 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2006</span><h4>포도나무를 베어라</h4><p>BIFF PPP 코닥상 · 카를로비바리 경쟁</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EA%B4%9C%EC%B0%AE%EC%95%84%20%EC%9A%B8%EC%A7%80%EB%A7%88.jpg" alt="괜찮아, 울지마 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">2001</span><h4>괜찮아, 울지마</h4><p>카를로비바리 특별언급상 · 비평가상</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%B2%8C%EC%9D%B4%20%EB%82%A0%EB%8B%A4%20%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="벌이 날다 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">1998</span><h4>벌이 날다</h4><p>데뷔작 · 토리노 대상 3관왕</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="feature">
+                    <div class="poster-wrap"><img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EC%9A%A9%EB%B3%91%EC%9D%B4%EB%B0%98_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="용병 이반 포스터" loading="lazy"></div>
+                    <div class="poster-info"><span class="poster-year">1997</span><h4>용병 이반</h4><p>조연출 · 러시아 유학 시절</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap poster-textonly"><span>PORTRAIT</span></div>
+                    <div class="poster-info"><span class="poster-year">1996</span><h4>초상화</h4><p>단편 · VGIK 재학 시절</p></div>
+                </article>
+                <article class="poster-card reveal" data-cat="short">
+                    <div class="poster-wrap poster-textonly"><span>ONE<br>PERSON</span></div>
+                    <div class="poster-info"><span class="poster-year">1995</span><h4>한 사람</h4><p>단편 · VGIK 재학 시절</p></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Awards ===== -->
+    <section id="awards" class="section awards">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">HONORS &amp; AWARDS</p>
+                <h2 class="section-title">수상내역</h2>
+            </div>
+            <p class="awards-hint reveal">필름의 프레임을 선택하면, 아래 스크린에 그 상의 이야기가 영사됩니다.</p>
+            <div class="film-strip-wrap reveal">
+                <div class="film-strip" id="filmStrip" role="tablist" aria-label="수상내역 필름">
+                    <button class="film-frame" data-award="0" role="tab">
+                        <span class="frame-year">1998</span>
+                        <span class="frame-award">토리노국제영화제<br>대상 · 비평가상 · 관객상</span>
+                        <span class="frame-film">벌이 날다</span>
+                    </button>
+                    <button class="film-frame" data-award="1" role="tab">
+                        <span class="frame-year">1998</span>
+                        <span class="frame-award">테살로니키국제영화제<br>은상</span>
+                        <span class="frame-film">벌이 날다</span>
+                    </button>
+                    <button class="film-frame" data-award="2" role="tab">
+                        <span class="frame-year">1999</span>
+                        <span class="frame-award">코트부스영화제<br>예술공헌상</span>
+                        <span class="frame-film">벌이 날다</span>
+                    </button>
+                    <button class="film-frame" data-award="3" role="tab">
+                        <span class="frame-year">1999</span>
+                        <span class="frame-award">아나파국제영화제<br>감독상</span>
+                        <span class="frame-film">벌이 날다</span>
+                    </button>
+                    <button class="film-frame" data-award="4" role="tab">
+                        <span class="frame-year">2002</span>
+                        <span class="frame-award">카를로비바리국제영화제<br>특별언급상 · 비평가상</span>
+                        <span class="frame-film">괜찮아, 울지마</span>
+                    </button>
+                    <button class="film-frame" data-award="5" role="tab">
+                        <span class="frame-year">2004</span>
+                        <span class="frame-award">부산국제영화제<br>PPP 코닥상</span>
+                        <span class="frame-film">포도나무를 베어라</span>
+                    </button>
+                    <button class="film-frame" data-award="6" role="tab">
+                        <span class="frame-year">2012</span>
+                        <span class="frame-award">마리클레르영화제 특별상<br>영상자료원 올해의 영화 外</span>
+                        <span class="frame-film">터치</span>
+                    </button>
+                    <button class="film-frame" data-award="7" role="tab">
+                        <span class="frame-year">2013</span>
+                        <span class="frame-award">전주국제영화제<br>한국단편경쟁 감독상</span>
+                        <span class="frame-film">가면과 거울</span>
+                    </button>
+                    <button class="film-frame" data-award="8" role="tab">
+                        <span class="frame-year">2023</span>
+                        <span class="frame-award">대전MBC 아트&amp;미디어대전<br>입선</span>
+                        <span class="frame-film">생명의 바다</span>
+                    </button>
+                    <button class="film-frame" data-award="9" role="tab">
+                        <span class="frame-year">2023</span>
+                        <span class="frame-award">부산국제영화제<br>와이드 앵글 공식 초청</span>
+                        <span class="frame-film">약속</span>
+                    </button>
+                </div>
+            </div>
+            <div class="award-screen reveal" id="awardScreen" role="tabpanel" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- ===== Media Art ===== -->
+    <section id="media-art" class="section media-art">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">MEDIA ART</p>
+                <h2 class="section-title">미디어아트</h2>
+                <p class="section-desc">스크린 밖으로 확장된 시네마 — 제주의 자연과 애도의 시간을 담은 영상 설치 작업</p>
+            </div>
+            <div class="expo-grid">
+                <article class="expo-card reveal">
+                    <p class="expo-year">2026. 1. 29 &mdash; 4. 19</p>
+                    <h3>소멸 <em>Dissolution</em></h3>
+                    <p class="expo-venue">아라리오뮤지엄 인 스페이스, 서울 종로구 율곡로 83</p>
+                    <p class="expo-desc">
+                        끊임없이 부서져 흩어지고 사라지는 파도와 구름, 무지개 같은 제주 풍광.
+                        역재생 기법으로 시간을 거슬러 오르는 신작 영상 &lt;소멸&gt;(2025)이 처음 공개되었으며,
+                        마지막 공간에서는 다큐멘터리 &lt;약속&gt;의 축약본을 상영했다.
+                    </p>
+                </article>
+                <article class="expo-card reveal">
+                    <p class="expo-year">2025</p>
+                    <h3>나의 죽음은 나의 것</h3>
+                    <p class="expo-venue">아라리오뮤지엄 동문모텔1, 제주</p>
+                    <p class="expo-desc">삶과 죽음, 자연과 기억이 교차하는 제주 풍경 속에서 애도의 시선을 담은 시적 영상전.</p>
+                </article>
+                <article class="expo-card reveal">
+                    <p class="expo-year">2024</p>
+                    <h3>보이지 않는 순간들</h3>
+                    <p class="expo-venue">산속등대미술관</p>
+                    <p class="expo-desc">제주 곶자왈과 바닷가, 눈에 보이지 않는 순간들의 기록.</p>
+                </article>
+                <article class="expo-card reveal">
+                    <p class="expo-year">2023</p>
+                    <h3>생명의 바다</h3>
+                    <p class="expo-venue">대전MBC 아트&amp;미디어대전 입선</p>
+                    <p class="expo-desc">생명의 근원으로서의 바다를 응시한 미디어아트 작품.</p>
+                </article>
+                <article class="expo-card reveal">
+                    <p class="expo-year">2022. 2. 22 &mdash; 3. 19</p>
+                    <h3>영원과 하루 <em>Eternity and a Day</em></h3>
+                    <p class="expo-venue">호리아트스페이스 &amp; 아이프 라운지, 서울</p>
+                    <p class="expo-desc">
+                        미디어아트 작가로서의 첫 개인전. 제주의 자연을 담은 영상 작품 20점 —
+                        천사의 숨, 깃털처럼 가볍게, 영원과 하루, 나도 나를 어쩌지 못할 때, 볼수록,
+                        안개처럼 사라지리라, 봉인된 시간, 바다와 독약, 레퀴엠.
+                    </p>
+                </article>
+                <article class="expo-card expo-image reveal">
+                    <img src="https://raw.githubusercontent.com/marisol2727/my-website-images/main/%EB%B3%BC%EC%88%98%EB%A1%9D.jpg" alt="미디어아트 작품 '볼수록' 스틸" loading="lazy">
+                    <p class="expo-caption">볼수록 (2022), 영상 스틸</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Books & Broadcast ===== -->
+    <section id="books" class="section books">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">PUBLICATIONS &amp; RADIO</p>
+                <h2 class="section-title">저서 · 방송</h2>
+            </div>
+            <div class="books-grid">
+                <a class="book-card reveal" href="https://www.yes24.com/product/goods/64431373" target="_blank" rel="noopener">
+                    <div class="book-cover"><img src="https://image.yes24.com/goods/64431373/XL" alt="영화감독이 되는 길 표지" loading="lazy"></div>
+                    <h4>영화감독이 되는 길</h4>
+                    <p>가쎄 · 2018</p>
+                </a>
+                <a class="book-card reveal" href="https://www.yes24.com/product/goods/52894281" target="_blank" rel="noopener">
+                    <div class="book-cover"><img src="https://image.yes24.com/goods/52894281/XL" alt="황제 The Emperor 표지" loading="lazy"></div>
+                    <h4>황제 The Emperor</h4>
+                    <p>가쎄 · 2017</p>
+                </a>
+                <a class="book-card reveal" href="https://www.yes24.com/product/goods/14727346" target="_blank" rel="noopener">
+                    <div class="book-cover"><img src="https://image.yes24.com/momo/TopCate411/MidCate001/41004860.jpg" alt="영화가 이긴다 표지" loading="lazy"></div>
+                    <h4>영화가 이긴다</h4>
+                    <p>2014 · 스크린 독과점 비판</p>
+                </a>
+                <a class="book-card reveal" href="https://www.yes24.com/product/goods/7943706" target="_blank" rel="noopener">
+                    <div class="book-cover"><img src="https://image.yes24.com/momo/TopCate213/MidCate007/21260621.jpg" alt="터치 표지" loading="lazy"></div>
+                    <h4>터치</h4>
+                    <p>오래된미래 · 2012</p>
+                </a>
+                <a class="book-card reveal" href="https://www.yes24.com/product/goods/4062482" target="_blank" rel="noopener">
+                    <div class="book-cover"><img src="https://image.yes24.com/momo/TopCate0001/kepub/L_466110.jpg" alt="민병훈 감독의 영화가 좋다 표지" loading="lazy"></div>
+                    <h4>민병훈 감독의 영화가 좋다</h4>
+                    <p>이담북스 · 2010</p>
+                </a>
+            </div>
+
+            <div class="radio reveal">
+                <div class="radio-body">
+                    <p class="section-eyebrow">RADIO</p>
+                    <h3>민병훈 감독의 영화터치</h3>
+                    <p class="radio-meta">cpbc 가톨릭평화방송 FM &nbsp;·&nbsp; 2016. 12. 3 &mdash; 2020. 8. 15 &nbsp;·&nbsp; 매주 토요일 오후 4시</p>
+                    <p class="radio-desc"><em>&ldquo;민병훈, 그가 영화로 생명을, 삶을, 예술을 터치한다.&rdquo;</em><br>
+                    4년간 진행한 영화 음악·비평 라디오 프로그램. 다시듣기는 공식 홈페이지에서 제공된다.</p>
+                    <a href="https://program.cpbc.co.kr/radio/touchmovie/main" target="_blank" rel="noopener" class="btn btn-gold">다시듣기</a>
+                </div>
+                <div class="radio-photo">
+                    <img src="https://img.cpbc.co.kr/cpbc_cms/2023/01/30/R2c1675047712323.jpg" alt="민병훈 감독의 영화터치 방송 이미지" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Videos ===== -->
+    <section id="videos" class="section videos">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">ON SCREEN</p>
+                <h2 class="section-title">영상으로 만나는 민병훈</h2>
+            </div>
+            <div class="video-grid">
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=f5Gr_27pptQ" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/f5Gr_27pptQ/hqdefault.jpg" alt="영화 약속 예고편" loading="lazy"><span class="play"></span></div>
+                    <h4>영화 &lt;약속&gt; 공식 예고편</h4>
+                    <p>부산국제영화제 와이드 앵글 초청작</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=Mw9umu5SF5E&t=3s" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/Mw9umu5SF5E/hqdefault.jpg" alt="KBS 자연의 철학자들" loading="lazy"><span class="play"></span></div>
+                    <h4>KBS 자연의 철학자들 43부</h4>
+                    <p>바람이 우리를 데려다 주리라 — 제주에서의 기록</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=4X8ZgFOGvZI" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/4X8ZgFOGvZI/hqdefault.jpg" alt="KBS 아침마당" loading="lazy"><span class="play"></span></div>
+                    <h4>KBS 아침마당</h4>
+                    <p>2023. 11. 28 — 아들 시우와 함께 출연</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=mWQvLfkg_ts" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/mWQvLfkg_ts/hqdefault.jpg" alt="서울독립영화제 개막작" loading="lazy"><span class="play"></span></div>
+                    <h4>서울독립영화제 2020 개막작</h4>
+                    <p>창작자의 작업실 — 두 개의 거울: 민병훈≠민병훈</p>
+                </a>
+                <a class="video-card reveal" href="https://youtu.be/fldTpmFYcWE" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/fldTpmFYcWE/hqdefault.jpg" alt="EBS 세계테마기행" loading="lazy"><span class="play"></span></div>
+                    <h4>EBS 세계테마기행</h4>
+                    <p>아르메니아, 바람의 노래 (2010)</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=XSRKe5rrNMQ" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/XSRKe5rrNMQ/hqdefault.jpg" alt="황제 메이킹 필름" loading="lazy"><span class="play"></span></div>
+                    <h4>&lt;황제&gt; 메이킹 필름</h4>
+                    <p>감독 코멘터리 버전</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=XZK_cgbAEp8" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/XZK_cgbAEp8/hqdefault.jpg" alt="현대자동차 휴먼라이브러리" loading="lazy"><span class="play"></span></div>
+                    <h4>현대자동차 휴먼라이브러리</h4>
+                    <p>영화의 비밀, 감독의 방</p>
+                </a>
+                <a class="video-card reveal" href="https://www.youtube.com/watch?v=qoor1fLeQV8" target="_blank" rel="noopener">
+                    <div class="video-thumb"><img src="https://img.youtube.com/vi/qoor1fLeQV8/hqdefault.jpg" alt="전작 하이라이트" loading="lazy"><span class="play"></span></div>
+                    <h4>민병훈 감독 전작 하이라이트</h4>
+                    <p>가톨릭평화방송</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Archive Board ===== -->
+    <section id="archive" class="section archive">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">ARCHIVE</p>
+                <h2 class="section-title">아카이브</h2>
+                <p class="section-desc">1998년 데뷔부터 현재까지 — 수상, 개봉, 전시, 방송의 기록</p>
+            </div>
+            <div class="archive-filters reveal" id="archiveFilters">
+                <button class="filter-btn is-active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="award">수상</button>
+                <button class="filter-btn" data-filter="release">개봉·작품</button>
+                <button class="filter-btn" data-filter="festival">영화제</button>
+                <button class="filter-btn" data-filter="expo">전시</button>
+                <button class="filter-btn" data-filter="media">방송·출간</button>
+            </div>
+            <div class="archive-board reveal" id="archiveBoard">
+
+                <div class="archive-row" data-cat="expo">
+                    <span class="archive-date">2026. 01. 29</span>
+                    <span class="archive-tag tag-expo">전시</span>
+                    <div class="archive-text">
+                        <h5>개인전 &lt;소멸 Dissolution&gt; — 아라리오뮤지엄 인 스페이스</h5>
+                        <p>역재생으로 시간을 거슬러 오르는 신작 영상 &lt;소멸&gt;(2025) 최초 공개. 1월 29일부터 4월 19일까지 열렸다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="expo">
+                    <span class="archive-date">2025</span>
+                    <span class="archive-tag tag-expo">전시</span>
+                    <div class="archive-text">
+                        <h5>영상전 &lt;나의 죽음은 나의 것&gt; — 아라리오뮤지엄 동문모텔1, 제주</h5>
+                        <p>삶과 죽음, 자연과 기억이 교차하는 제주 풍경 속 애도의 시선.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="expo">
+                    <span class="archive-date">2024</span>
+                    <span class="archive-tag tag-expo">전시</span>
+                    <div class="archive-text">
+                        <h5>영상전 &lt;보이지 않는 순간들&gt; — 산속등대미술관</h5>
+                        <p>제주 곶자왈과 바닷가의 순간들을 기록한 영상 설치.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2024. 03</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>피렌체 한국영화제(Florence Korea Film Fest) 공식 초청</h5>
+                        <p>이탈리아 피렌체에서 민병훈 감독의 작품 세계가 유럽 관객과 만나다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2023. 11. 28</span>
+                    <span class="archive-tag tag-media">방송</span>
+                    <div class="archive-text">
+                        <h5>KBS 아침마당 출연</h5>
+                        <p>아들 민시우 군과 함께 출연해 영화 &lt;약속&gt;과 제주에서의 삶을 이야기하다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2023. 11</span>
+                    <span class="archive-tag tag-media">방송</span>
+                    <div class="archive-text">
+                        <h5>어린 시인 민시우, 안방극장을 울리다</h5>
+                        <p>엄마를 그리며 시를 쓰는 시우 군의 사연이 방송을 타며 영화 &lt;약속&gt;에 대한 관심으로 이어지다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2023. 11. 01</span>
+                    <span class="archive-tag tag-release">개봉</span>
+                    <div class="archive-text">
+                        <h5>&lt;약속&gt; 전국 개봉</h5>
+                        <p>11번째 장편이자 가장 사적인 다큐멘터리. 극장 개봉과 함께 전국 공동체 상영으로 확산. 83분, 전체관람가.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2023. 10</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>제28회 부산국제영화제 와이드 앵글 — &lt;약속&gt; 월드 프리미어</h5>
+                        <p>다큐멘터리 쇼케이스 공식 초청. "가장 오랜 시간 만들었고, 가장 힘들었던 영화."</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">2023</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>대전MBC 아트&amp;미디어대전 입선 — &lt;생명의 바다&gt;</h5>
+                        <p>미디어아트 작가로서 첫 공모전 수상.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2023. 01. 27</span>
+                    <span class="archive-tag tag-media">방송</span>
+                    <div class="archive-text">
+                        <h5>KBS &lt;자연의 철학자들&gt; 43부 '바람이 우리를 데려다 주리라'</h5>
+                        <p>제주의 대자연 속에서 아들과 함께 살아가는 감독의 일상이 전파를 타다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2022</span>
+                    <span class="archive-tag tag-release">작품</span>
+                    <div class="archive-text">
+                        <h5>&lt;팬텀&gt; 완성 — 생명 3부작 완결</h5>
+                        <p>&lt;황제&gt;(2017), &lt;기적&gt;(2020)에 이은 생명 3부작의 마지막 장.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="expo">
+                    <span class="archive-date">2022. 02. 22</span>
+                    <span class="archive-tag tag-expo">전시</span>
+                    <div class="archive-text">
+                        <h5>첫 미디어아트 개인전 &lt;영원과 하루&gt; — 호리아트스페이스 &amp; 아이프 라운지</h5>
+                        <p>제주 자연을 담은 영상 작품 20점. "힘든 이들에게 조용한 위로를" — 영화감독에서 미디어아트 작가로의 확장.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2020. 11</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>서울독립영화제 2020 개막작 — &lt;두 개의 거울: 민병훈≠민병훈&gt;</h5>
+                        <p>'창작자의 작업실' 시리즈로 개막을 장식하다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2020</span>
+                    <span class="archive-tag tag-release">작품</span>
+                    <div class="archive-text">
+                        <h5>&lt;기적&gt; · &lt;영원과 하루&gt; 발표</h5>
+                        <p>제주에서 촬영한 생명 3부작 두 번째 작품과 단편.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2017. 10</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>부산국제영화제 월드 프리미어 — &lt;황제&gt;</h5>
+                        <p>피아니스트 김선욱 주연, 아티스트 시리즈의 정점. 생명 3부작의 서장.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2017. 08</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>네마프(서울국제뉴미디어페스티벌) 개막작 — &lt;설계자&gt;</h5>
+                        <p>미디어아트와 영화의 경계를 실험한 작품.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2016. 12. 03</span>
+                    <span class="archive-tag tag-media">방송</span>
+                    <div class="archive-text">
+                        <h5>cpbc FM &lt;민병훈 감독의 영화터치&gt; 진행 시작</h5>
+                        <p>매주 토요일 오후 4시, 2020년 8월까지 4년간 진행한 영화 라디오.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2016</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>서울환경영화제 — &lt;시화공존&gt;</h5>
+                        <p>4회 연속 진출 기록. 시화호의 생태를 담은 환경 다큐멘터리.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2015</span>
+                    <span class="archive-tag tag-release">개봉</span>
+                    <div class="archive-text">
+                        <h5>&lt;사랑이 이긴다&gt; 개봉</h5>
+                        <p>청소년 자살과 가족의 구조를 응시한 장편. 함부르크·상하이국제영화제 초청.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2014</span>
+                    <span class="archive-tag tag-media">출간</span>
+                    <div class="archive-text">
+                        <h5>저서 &lt;영화가 이긴다&gt; 출간</h5>
+                        <p>스크린 독과점에 맞선 독립영화인의 기록이자 선언.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">2013. 05</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>전주국제영화제 한국단편경쟁 감독상 — &lt;가면과 거울&gt;</h5>
+                        <p>신사실파 화가 백영수 화백의 삶을 담은 단편.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">2012. 12</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>&lt;터치&gt; — 마리클레르영화제 특별상 · 한국영상자료원 올해의 영화 · 한국가톨릭매스컴상</h5>
+                        <p>유준상·김지영 주연. 조기종영 논란 속 재개봉 운동이 일어난 화제작.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2012. 11</span>
+                    <span class="archive-tag tag-release">개봉</span>
+                    <div class="archive-text">
+                        <h5>&lt;터치&gt; 개봉</h5>
+                        <p>독립영화 배급 구조에 대한 사회적 논의를 촉발한 작품.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="media">
+                    <span class="archive-date">2010</span>
+                    <span class="archive-tag tag-media">방송</span>
+                    <div class="archive-text">
+                        <h5>EBS 세계테마기행 '아르메니아, 바람의 노래' 출연</h5>
+                        <p>여행 중 단편 &lt;노스텔지아&gt;를 제작. 같은 해 저서 &lt;민병훈 감독의 영화가 좋다&gt; 출간.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">2007. 03</span>
+                    <span class="archive-tag tag-release">개봉</span>
+                    <div class="archive-text">
+                        <h5>&lt;포도나무를 베어라&gt; 개봉</h5>
+                        <p>카를로비바리 경쟁부문·몬트리올국제영화제 초청. 파라자노프적 미학의 영상시.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">2004. 10</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>부산국제영화제 PPP 코닥상 — &lt;포도나무를 베어라&gt;</h5>
+                        <p>부산프로모션플랜에서 기획을 인정받다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">2002. 07</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>카를로비바리국제영화제 특별언급상 · 비평가상 — &lt;괜찮아, 울지마&gt;</h5>
+                        <p>체코의 명문 영화제에서 두 개 부문 수상.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="festival">
+                    <span class="archive-date">2001. 11</span>
+                    <span class="archive-tag tag-festival">영화제</span>
+                    <div class="archive-text">
+                        <h5>부산국제영화제 파노라마 초청 — &lt;괜찮아, 울지마&gt;</h5>
+                        <p>감독·각본·촬영 1인 3역으로 완성한 두 번째 장편.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">1999</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>코트부스영화제 예술공헌상 · 아나파국제영화제 감독상 — &lt;벌이 날다&gt;</h5>
+                        <p>유럽과 러시아에서 이어진 수상 행진.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="award">
+                    <span class="archive-date">1998. 11</span>
+                    <span class="archive-tag tag-award">수상</span>
+                    <div class="archive-text">
+                        <h5>토리노국제영화제 대상 · 비평가상 · 관객상 — &lt;벌이 날다&gt;</h5>
+                        <p>데뷔작으로 3관왕. 같은 해 테살로니키국제영화제 은상까지 — 한국 독립영화의 사건.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">1998</span>
+                    <span class="archive-tag tag-release">작품</span>
+                    <div class="archive-text">
+                        <h5>데뷔작 &lt;벌이 날다&gt; 완성</h5>
+                        <p>타지키스탄 로케이션, 잠셰드 우스마노프 공동 연출. 감독·제작·촬영·편집을 모두 맡다.</p>
+                    </div>
+                </div>
+                <div class="archive-row" data-cat="release">
+                    <span class="archive-date">1995 &mdash; 1997</span>
+                    <span class="archive-tag tag-release">작품</span>
+                    <div class="archive-text">
+                        <h5>VGIK 시절 — &lt;한 사람&gt;(1995), &lt;초상화&gt;(1996), &lt;용병 이반&gt;(1997) 조연출</h5>
+                        <p>러시아 국립영화대학 재학 중 단편 연출과 현장 수업.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Contact / Social ===== -->
+    <section id="contact" class="section contact">
+        <div class="contact-bg" aria-hidden="true"></div>
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="section-eyebrow">FOLLOW &amp; CONTACT</p>
+                <h2 class="section-title">민병훈과 연결되기</h2>
+            </div>
+            <div class="social-grid reveal">
+                <a href="https://instagram.com/docu_promise" target="_blank" rel="noopener" class="social-card">
+                    <span class="social-name">Instagram</span>
+                    <span class="social-handle">@docu_promise</span>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+                <a href="https://www.facebook.com/minbyunghun69/?locale=ko_KR" target="_blank" rel="noopener" class="social-card">
+                    <span class="social-name">Facebook</span>
+                    <span class="social-handle">민병훈 공식 계정</span>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+                <a href="https://www.youtube.com/@%EB%AF%BC%EB%B3%91%ED%9B%88%ED%95%84%EB%A6%84" target="_blank" rel="noopener" class="social-card">
+                    <span class="social-name">YouTube</span>
+                    <span class="social-handle">민병훈필름</span>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+                <a href="https://www.youtube.com/@%EA%B3%B5%EB%B0%B1_74" target="_blank" rel="noopener" class="social-card">
+                    <span class="social-name">YouTube</span>
+                    <span class="social-handle">민시우 약속</span>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p class="footer-logo">MIN BYUNG HUN <span>민병훈</span></p>
+            <p class="footer-copy">&copy; 2026 Min Byung Hun Film. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
