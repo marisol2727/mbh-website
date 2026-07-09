@@ -87,18 +87,30 @@ function initNav() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    function closeMenu() {
+        menu.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
     toggle.addEventListener('click', () => {
         const open = menu.classList.toggle('is-open');
         toggle.classList.toggle('is-open', open);
         document.body.style.overflow = open ? 'hidden' : '';
     });
 
+    // Rotating the phone can cross the mobile breakpoint (some phones exceed
+    // 860px wide in landscape), flipping the menu between the full-screen
+    // mobile overlay and the plain desktop layout mid-interaction. Force a
+    // clean close on any viewport change so it can't get stuck half-open
+    // with body scroll still locked.
+    window.addEventListener('resize', closeMenu);
+    window.addEventListener('orientationchange', closeMenu);
+
     links.forEach(link => {
         link.addEventListener('click', e => {
             const target = document.querySelector(link.getAttribute('href'));
-            menu.classList.remove('is-open');
-            toggle.classList.remove('is-open');
-            document.body.style.overflow = '';
+            closeMenu();
             // Drive the scroll explicitly instead of the native anchor jump:
             // closing the mobile overlay unlocks body scroll in the same tick,
             // and racing that against the browser's own hash-jump occasionally
