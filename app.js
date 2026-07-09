@@ -101,23 +101,46 @@ function initNav() {
 
     // Rotating the phone can cross the mobile breakpoint (some phones exceed
     // 860px wide in landscape), flipping the menu between the full-screen
-    // mobile overlay and the plain desktop layout mid-interaction. Force a
-    // clean close on any viewport change so it can't get stuck half-open
-    // with body scroll still locked.
-    window.addEventListener('resize', closeMenu);
-    window.addEventListener('orientationchange', closeMenu);
+    // mobile overlay and the plain desktop layout mid-interaction, leaving it
+    // stuck half-open with body scroll locked. Close it when the layout mode
+    // actually flips — and only then. A bare resize listener is wrong here:
+    // mobile browsers fire resize whenever the URL bar shows/hides, which
+    // would slam the menu shut the moment the user opens it.
+    const mobileLayout = window.matchMedia('(max-width: 860px)');
+    if (typeof mobileLayout.addEventListener === 'function') {
+        mobileLayout.addEventListener('change', closeMenu);
+    } else if (typeof mobileLayout.addListener === 'function') {
+        mobileLayout.addListener(closeMenu);
+    }
+    // Fallback for the same scenario: react only when the viewport WIDTH
+    // changes. URL-bar show/hide only changes the height, so this still
+    // never fights the user for the open menu.
+    let lastViewportWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+        if (window.innerWidth !== lastViewportWidth) {
+            lastViewportWidth = window.innerWidth;
+            closeMenu();
+        }
+    });
 
     links.forEach(link => {
         link.addEventListener('click', e => {
             const target = document.querySelector(link.getAttribute('href'));
+            const wasOverlay = menu.classList.contains('is-open');
             closeMenu();
-            // Drive the scroll explicitly instead of the native anchor jump:
-            // closing the mobile overlay unlocks body scroll in the same tick,
-            // and racing that against the browser's own hash-jump occasionally
-            // dropped the navigation on first tap from the very top of the page.
+            // Drive the scroll explicitly instead of the native anchor jump.
+            // When the tap came from the full-screen mobile overlay, jump
+            // instantly: unlocking body scroll in the same interaction
+            // cancels an in-flight smooth animation on mobile browsers,
+            // which intermittently left the page exactly where it was.
+            // Smooth is kept for desktop, where no overlay teardown races
+            // the animation.
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({
+                    behavior: wasOverlay ? 'instant' : 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
