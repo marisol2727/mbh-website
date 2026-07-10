@@ -10,6 +10,7 @@ function initAll() {
     initFilter('#filmoFilters', '#filmoGrid .poster-card');
     initFilter('#archiveFilters', '#archiveBoard .archive-row');
     initAwards();
+    initStripArrows();
     initYouTubeLite();
 }
 if (document.readyState === 'loading') {
@@ -106,7 +107,8 @@ function initNav() {
     // actually flips — and only then. A bare resize listener is wrong here:
     // mobile browsers fire resize whenever the URL bar shows/hides, which
     // would slam the menu shut the moment the user opens it.
-    const mobileLayout = window.matchMedia('(max-width: 860px)');
+    // Keep in sync with the mobile-nav media query in style.css
+    const mobileLayout = window.matchMedia('(max-width: 1024px)');
     if (typeof mobileLayout.addEventListener === 'function') {
         mobileLayout.addEventListener('change', closeMenu);
     } else if (typeof mobileLayout.addListener === 'function') {
@@ -394,6 +396,43 @@ function initAwards() {
         f.addEventListener('click', () => render(parseInt(f.dataset.award, 10)));
     });
     render(0);
+}
+
+// ---------- Awards film strip : prev/next chevrons ----------
+function initStripArrows() {
+    const wrap = document.querySelector('.film-strip-wrap');
+    const prev = document.querySelector('.strip-arrow-prev');
+    const next = document.querySelector('.strip-arrow-next');
+    if (!wrap || !prev || !next) return;
+
+    function update() {
+        const max = wrap.scrollWidth - wrap.clientWidth;
+        prev.classList.toggle('is-hidden', wrap.scrollLeft <= 4);
+        next.classList.toggle('is-hidden', wrap.scrollLeft >= max - 4);
+    }
+    // Animate with rAF instead of scrollBy({behavior:'smooth'}): smooth
+    // scrolling is unreliable on this page (see the nav-link handler).
+    function glide(delta) {
+        const start = wrap.scrollLeft;
+        const target = Math.max(0, Math.min(start + delta, wrap.scrollWidth - wrap.clientWidth));
+        const t0 = performance.now();
+        const DUR = 450;
+        (function frame(now) {
+            const p = Math.min((now - t0) / DUR, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            wrap.scrollLeft = start + (target - start) * eased;
+            if (p < 1) requestAnimationFrame(frame);
+        })(t0);
+        // Land on the target even if rAF is throttled (background tab),
+        // and refresh arrow visibility in case scroll events were skipped
+        setTimeout(() => { wrap.scrollLeft = target; update(); }, DUR + 100);
+    }
+    const step = () => Math.max(wrap.clientWidth * 0.75, 220);
+    prev.addEventListener('click', () => glide(-step()));
+    next.addEventListener('click', () => glide(step()));
+    wrap.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
 }
 
 // ---------- Click-to-play YouTube embeds (no new tab, loads only on click) ----------

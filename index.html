@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260710031039">
+    <link rel="stylesheet" href="style.css?v=20260711032304">
 </head>
 <body>
 
@@ -369,7 +369,11 @@
                 <h2 class="section-title">수상내역</h2>
             </div>
             <p class="awards-hint reveal">필름의 프레임을 선택하면, 아래 스크린에 그 상의 이야기가 영사됩니다.</p>
-            <div class="film-strip-wrap reveal">
+            <div class="strip-shell reveal">
+                <button class="strip-arrow strip-arrow-prev is-hidden" type="button" aria-label="이전 수상 내역 보기">
+                    <svg width="26" height="46" viewBox="0 0 26 46" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4 6 23l16 19" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="film-strip-wrap">
                 <div class="film-strip" id="filmStrip" role="tablist" aria-label="수상내역 필름">
                     <button class="film-frame" data-award="0" role="tab">
                         <span class="frame-year">1998</span>
@@ -422,6 +426,10 @@
                         <span class="frame-film">약속</span>
                     </button>
                 </div>
+                </div>
+                <button class="strip-arrow strip-arrow-next" type="button" aria-label="다음 수상 내역 보기">
+                    <svg width="26" height="46" viewBox="0 0 26 46" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4 20 23 4 42" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
             </div>
             <div class="award-screen reveal" id="awardScreen" role="tabpanel" aria-live="polite"></div>
         </div>
@@ -436,6 +444,16 @@
                 <p class="section-desc">스크린 밖으로 확장된 시네마 — 제주의 자연과 애도의 시간을 담은 영상 설치 작업</p>
             </div>
             <div class="expo-grid">
+                <article class="expo-card reveal">
+                    <p class="expo-year">2026. 7. 1 &mdash; 7. 2</p>
+                    <h3>글로벌 예술나눔 <em>Kuala Lumpur</em></h3>
+                    <p class="expo-venue">아이프칠드런 엔젤아티스트 · 말레이시아 쿠알라룸푸르</p>
+                    <p class="expo-desc">
+                        스크린 밖으로 확장된 시네마가 국경도 넘었다. 테일러스대·헬프대에서의 상영과 강연
+                        '예술이 너희를 자유케 하리라', 그리고 복지 대안학교 SBJK에서 연누리 작가와 함께한
+                        120여 명 아이들과의 음악·설치미술 워크숍. 예술로 위로를 건네는 여정의 가장 최근 페이지.
+                    </p>
+                </article>
                 <article class="expo-card reveal">
                     <p class="expo-year">2026. 1. 29 &mdash; 4. 19</p>
                     <h3>소멸 <em>Dissolution</em></h3>
@@ -530,6 +548,46 @@
                     <img src="https://img.cpbc.co.kr/cpbc_cms/2023/01/30/R2c1675047712323.jpg" alt="민병훈 감독의 영화터치 방송 이미지" loading="lazy">
                 </div>
             </div>
+
+            <div class="radio-episodes-head reveal">
+                <h4 class="episodes-title">다시 듣는 영화터치 — 그날의 방송들</h4>
+                <p class="episodes-desc">
+                    2016년 12월 3일 첫 전파부터 2020년 8월 15일 마지막 인사까지, 매주 토요일 오후의 목소리.
+                    cpbc 공식 팟캐스트에는 90회분의 방송이 남아 있다. 그중 몇 편을 여기서 바로 들을 수 있다.
+                </p>
+            </div>
+            <div class="radio-episodes reveal">
+                <article class="episode-card">
+                    <span class="episode-badge">ON AIR</span>
+                    <p class="episode-date">2016. 12. 3</p>
+                    <h4>첫 방송 — 여정의 시작</h4>
+                    <p>"민병훈, 그가 영화로 생명을, 삶을, 예술을 터치한다." 매주 토요일 오후 4시,
+                    이후 4년간 이어질 영화와 음악의 여정이 이날 처음 전파를 탔다.</p>
+                    <a class="episode-link" href="https://program.cpbc.co.kr/radio/touchmovie/main" target="_blank" rel="noopener">다시듣기 아카이브 &rarr;</a>
+                </article>
+                <article class="episode-card">
+                    <span class="episode-badge">ON AIR</span>
+                    <p class="episode-date">2019. 12. 21</p>
+                    <h4>성탄을 나흘 앞둔 토요일</h4>
+                    <p>한 해의 끝, 성탄을 기다리는 주말 오후의 방송분. 부스 안의 온기가 그대로 담겨 있다.</p>
+                    <audio controls preload="none" src="https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_03f21645fd18e766eb3f7b2b9e10ac28-1674030614861.mp3?vod_id=C0000008481&amp;podcast_id=P0000000057"></audio>
+                </article>
+                <article class="episode-card">
+                    <span class="episode-badge">ON AIR</span>
+                    <p class="episode-date">2020. 1. 4</p>
+                    <h4>2020년 새해 첫 방송</h4>
+                    <p>새로운 십 년을 여는 새해 첫 토요일의 방송분.</p>
+                    <audio controls preload="none" src="https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_5a3b5135b2ba3992845aa5c967990d53-1674030615730.mp3?vod_id=C0000008481&amp;podcast_id=P0000000058"></audio>
+                </article>
+                <article class="episode-card">
+                    <span class="episode-badge">LAST</span>
+                    <p class="episode-date">2020. 8. 15</p>
+                    <h4>마지막 방송</h4>
+                    <p>4년의 여정을 마무리한 고별 방송. 마이크를 내려놓던 날의 기록.</p>
+                    <audio controls preload="none" src="https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_cf449bb1080c6ed78dcb1590d26dfa05-1674030655759.mp3?vod_id=C0000008481&amp;podcast_id=P0000000090"></audio>
+                </article>
+            </div>
+            <p class="episodes-note reveal">방송 음원은 cpbc 가톨릭평화방송 공식 팟캐스트에서 재생됩니다.</p>
         </div>
     </section>
 
@@ -600,9 +658,18 @@
                 <button class="filter-btn" data-filter="festival">영화제</button>
                 <button class="filter-btn" data-filter="expo">전시</button>
                 <button class="filter-btn" data-filter="media">방송·출간</button>
+                <button class="filter-btn" data-filter="share">예술나눔</button>
             </div>
             <div class="archive-board reveal" id="archiveBoard">
 
+                <div class="archive-row" data-cat="share">
+                    <span class="archive-date">2026. 07. 01</span>
+                    <span class="archive-tag tag-share">나눔</span>
+                    <div class="archive-text">
+                        <h5>아이프칠드런 글로벌 예술나눔 — 말레이시아 쿠알라룸푸르</h5>
+                        <p>공익재단 아이프칠드런의 엔젤아티스트로서 테일러스대학교와 헬프대학교에서 &lt;설계자&gt;·&lt;가면과 거울&gt;을 상영하고 '예술이 너희를 자유케 하리라'를 주제로 강연했다(&lt;기적&gt;의 서장원·박지연 배우 동행). 이튿날에는 교육 사각지대 아이들을 품는 복지 대안학교 SBJK에서 연누리 작가와 함께 120여 명의 학생들과 음악·설치미술 워크숍을, 스리 하르타마스 소방서에서 소방관들을 위한 문화예술 프로그램을 진행했다.</p>
+                    </div>
+                </div>
                 <div class="archive-row" data-cat="expo">
                     <span class="archive-date">2026. 01. 29</span>
                     <span class="archive-tag tag-expo">전시</span>
@@ -893,6 +960,11 @@
                     <span class="social-handle">민시우 약속</span>
                     <span class="social-arrow">&rarr;</span>
                 </a>
+                <a href="https://www.aifchildren.org/" target="_blank" rel="noopener" class="social-card">
+                    <span class="social-name">AiF Children</span>
+                    <span class="social-handle">아이프칠드런 엔젤아티스트</span>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
             </div>
         </div>
     </section>
@@ -904,6 +976,6 @@
         </div>
     </footer>
 
-    <script src="app.js?v=20260710031039"></script>
+    <script src="app.js?v=20260711032304"></script>
 </body>
 </html>

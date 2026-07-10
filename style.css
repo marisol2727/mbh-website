@@ -705,6 +705,33 @@ ul { list-style: none; }
     color: var(--ink-faint);
 }
 
+/* Shell holds the scrolling strip plus overlaid prev/next chevrons */
+.strip-shell { position: relative; }
+.strip-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px; height: 90px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
+    opacity: 0.92;
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0.35s;
+}
+.strip-arrow:hover { opacity: 1; }
+.strip-arrow-prev { left: -8px; }
+.strip-arrow-next { right: -8px; }
+.strip-arrow-prev:hover { transform: translateY(-50%) translateX(-3px); }
+.strip-arrow-next:hover { transform: translateY(-50%) translateX(3px); }
+.strip-arrow.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
 /* The strip: a length of 35mm film, scrolled horizontally */
 .film-strip-wrap {
     position: relative;
@@ -1094,6 +1121,88 @@ ul { list-style: none; }
     border: 1px solid var(--line);
 }
 
+/* ============ Radio Episodes ============ */
+.radio-episodes-head { margin-top: 56px; }
+.episodes-title {
+    font-family: var(--serif-kr);
+    font-size: clamp(19px, 2.2vw, 23px);
+    font-weight: 500;
+}
+.episodes-desc {
+    margin-top: 10px;
+    max-width: 640px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-dim);
+}
+.radio-episodes {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+.episode-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 24px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    transition: border-color 0.4s var(--ease);
+}
+.episode-card:hover { border-color: rgba(201, 169, 98, 0.45); }
+.episode-badge {
+    position: absolute;
+    top: 0; right: 20px;
+    transform: translateY(-50%);
+    padding: 3px 12px;
+    background: var(--bg);
+    border: 1px solid rgba(201, 169, 98, 0.6);
+    font-family: var(--serif-en);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+}
+.episode-date {
+    font-family: var(--serif-en);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+}
+.episode-card h4 {
+    font-family: var(--serif-kr);
+    font-size: 16.5px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.episode-card > p:not(.episode-date) {
+    flex: 1;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--ink-dim);
+}
+.episode-card audio {
+    width: 100%;
+    height: 38px;
+    color-scheme: dark;
+}
+.episode-link {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(201, 169, 98, 0.35);
+    align-self: flex-start;
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+}
+.episode-link:hover { border-color: var(--gold); }
+.episodes-note {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--ink-faint);
+}
+
 /* ============ Videos ============ */
 .videos { background: var(--bg-soft); }
 .video-grid {
@@ -1196,6 +1305,7 @@ ul { list-style: none; }
 .tag-festival{ border-color: rgba(190,150,160,0.5); color: #cf9daa; }
 .tag-release { border-color: rgba(150,190,165,0.5); color: #9bc4a9; }
 .tag-media   { border-color: rgba(245,241,232,0.3); color: var(--ink-dim); }
+.tag-share   { border-color: rgba(222,178,150,0.5); color: #dcb296; }
 .archive-text h5 {
     font-family: var(--serif-kr);
     font-size: 16.5px;
@@ -1303,7 +1413,13 @@ ul { list-style: none; }
     .radio-photo { max-width: 380px; }
 }
 
-@media (max-width: 860px) {
+/* Mobile nav switches at 1024px — deliberately wider than the 860px layout
+   breakpoint below. Phones in landscape run ~740-930px CSS wide; keeping the
+   hamburger + overlay past that range means rotating a phone never flips the
+   menu between its two modes mid-interaction (the exact source of the stuck
+   half-open menu on rotation). Must stay in sync with the matchMedia guard
+   in app.js. */
+@media (max-width: 1024px) {
     .nav-menu {
         position: fixed;
         inset: 0;
@@ -1331,6 +1447,14 @@ ul { list-style: none; }
     }
     .nav-toggle { display: flex; }
 
+    /* Short landscape viewports: tighten the overlay so all 9 links fit */
+    @media (max-height: 500px) {
+        .nav-menu { padding: 70px 20px 40px; gap: 0; }
+        .nav-menu .nav-link { font-size: 17px; padding: 7px 20px; }
+    }
+}
+
+@media (max-width: 860px) {
     .section { padding: 90px 0; }
     .section-head { margin-bottom: 48px; }
     .feature-list { gap: 70px; margin-bottom: 100px; }
