@@ -1164,6 +1164,19 @@ ul { list-style: none; }
     letter-spacing: 0.28em;
     color: var(--gold);
 }
+.episode-photo {
+    margin: 4px -24px 8px;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+}
+.episode-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88);
+    transition: transform 1s var(--ease);
+}
+.episode-card:hover .episode-photo img { transform: scale(1.045); }
 .episode-date {
     font-family: var(--serif-en);
     font-size: 15px;
