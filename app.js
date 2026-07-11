@@ -29,12 +29,22 @@ function initHeroSlideshow() {
     let current = 0;
     let startTime = performance.now();
 
-    // Preload backgrounds so crossfades never show an empty frame
-    slides.forEach(slide => {
-        const url = slide.style.backgroundImage.slice(5, -2);
-        const img = new Image();
-        img.src = url;
-    });
+    // Preload backgrounds so crossfades never show an empty frame — but only
+    // after the page has finished loading. Kicking off five full-size JPEG
+    // downloads at startup competed with everything else on phones and made
+    // the first screen sluggish to respond to taps.
+    function preloadSlides() {
+        slides.forEach(slide => {
+            const url = slide.style.backgroundImage.slice(5, -2);
+            const img = new Image();
+            img.src = url;
+        });
+    }
+    if (document.readyState === 'complete') {
+        preloadSlides();
+    } else {
+        window.addEventListener('load', preloadSlides, { once: true });
+    }
 
     function next() {
         slides[current].classList.remove('is-active');
@@ -135,14 +145,26 @@ function initNav() {
             // instantly: unlocking body scroll in the same interaction
             // cancels an in-flight smooth animation on mobile browsers,
             // which intermittently left the page exactly where it was.
-            // Smooth is kept for desktop, where no overlay teardown races
-            // the animation.
+            // The jump avoids scrollIntoView entirely — some engines throw
+            // on unknown ScrollBehavior enum values ('instant'), and CSS
+            // scroll-behavior:smooth would hijack plain scrollTo — so it
+            // suspends the CSS smoothing and uses coordinate scrollTo.
+            // Any failure falls back to the browser's own hash navigation.
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({
-                    behavior: wasOverlay ? 'instant' : 'smooth',
-                    block: 'start'
-                });
+                try {
+                    if (wasOverlay) {
+                        const html = document.documentElement;
+                        html.style.scrollBehavior = 'auto';
+                        const y = target.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo(0, y);
+                        setTimeout(() => { html.style.scrollBehavior = ''; }, 80);
+                    } else {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } catch (err) {
+                    location.hash = link.getAttribute('href');
+                }
             }
         });
     });
