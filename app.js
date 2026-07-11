@@ -12,6 +12,7 @@ function initAll() {
     initAwards();
     initStripArrows();
     initYouTubeLite();
+    initVideoLite();
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
@@ -253,6 +254,11 @@ const AWARDS = [
         posterAlt: '벌이 날다 포스터',
         meta: '이탈리아 토리노 · 1982년 창설 · 유럽 독립영화의 관문',
         desc: '베니스와 함께 이탈리아를 대표하는 영화제로, 새로운 시네아스트의 발견에 주력해 왔다. 데뷔작 <벌이 날다>는 대상·비평가상·관객상을 동시에 수상 — 심사위원과 평단, 관객의 마음을 한 작품이 모두 얻어낸 이례적인 기록이다. 봉준호 감독이 <살인의 추억>으로 이곳의 대상을 받기 5년 전의 일이다.',
+        photos: [
+            { src: 'images/torino_award_1.jpg', alt: '토리노국제영화제 수상 현장 사진 1' },
+            { src: 'images/torino_award_2.jpg', alt: '토리노국제영화제 수상 현장 사진 2' },
+            { src: 'images/torino_award_3.jpg', alt: '토리노국제영화제 수상 현장 사진 3' }
+        ],
         directors: [
             { name: '봉준호', note: '살인의 추억 · 2003 대상' },
             { name: '데이비드 고든 그린', note: '조지 워싱턴 · 2000 대상' },
@@ -300,6 +306,9 @@ const AWARDS = [
         posterAlt: '괜찮아, 울지마 포스터',
         meta: '체코 카를로비바리 · 1946년 창설 · FIAPF 공인 최상위 경쟁영화제',
         desc: '칸·베를린·베니스와 나란히 국제영화제작자연맹(FIAPF)이 공인한 세계 최정상급 경쟁영화제이자, 1946년 시작된 중동부 유럽에서 가장 오래된 영화제. 두 번째 장편 <괜찮아, 울지마>가 경쟁 부문에 올라 특별언급과 비평가상을 함께 받았다.',
+        videos: [
+            { src: 'https://trailer.koreafilm.or.kr/MK002771_P02.mp4', tag: 'MAKING FILM', label: '괜찮아, 울지마 — 메이킹 영상 · 한국영상자료원 KMDB' }
+        ],
         directors: [
             { name: '켄 로치', note: '케스 · 1970 크리스털 글로브 대상' },
             { name: '밀로시 포르만', note: '체코가 낳은 거장 · 영화제의 상징' }
@@ -314,6 +323,10 @@ const AWARDS = [
         posterAlt: '포도나무를 베어라 포스터',
         meta: '대한민국 부산 · 아시아 예술영화 기획 마켓',
         desc: '부산프로모션플랜(PPP, 현 아시아프로젝트마켓)은 아시아 예술영화의 기획과 투자를 잇는 산실로, 아시아 거장들의 초기 걸작들이 이곳을 거쳐 세상에 나왔다. <포도나무를 베어라>는 기획 단계에서 작품성을 인정받아 코닥상을 수상했고, 완성 후 카를로비바리 경쟁 부문에 진출했다.',
+        videos: [
+            { src: 'https://trailer.koreafilm.or.kr/MK002317_P02.mp4', tag: 'MAKING FILM', label: '포도나무를 베어라 — 메이킹 영상 · 한국영상자료원 KMDB' },
+            { src: 'https://trailer.koreafilm.or.kr/MK002318_P02.mp4', tag: 'PREMIERE', label: '포도나무를 베어라 — 시사회 영상 · 한국영상자료원 KMDB' }
+        ],
         directors: [
             { name: '지아장커', note: '플랫폼 · PPP가 배출한 대표작' }
         ]
@@ -402,6 +415,22 @@ function initAwards() {
         const directorsHtml = chips
             ? '<div class="screen-directors"><h6>이 무대를 거쳐간 세계의 감독들</h6><div class="director-chips">' + chips + '</div></div>'
             : '';
+        const photosHtml = (a.photos && a.photos.length)
+            ? '<div class="screen-photos">' + a.photos.map(p =>
+                '<a href="' + p.src + '" target="_blank" rel="noopener">'
+                + '<img src="' + p.src + '" alt="' + p.alt + '" loading="lazy"></a>'
+              ).join('') + '</div>'
+            : '';
+        const clipsHtml = (a.videos && a.videos.length)
+            ? '<div class="screen-clips">' + a.videos.map(v =>
+                '<a class="screen-clip vid-lite" href="' + v.src + '" data-src="' + v.src
+                + '" aria-label="' + v.label + ' 재생">'
+                + '<span class="clip-thumb">'
+                + (a.poster ? '<img src="' + a.poster + '" alt="" loading="lazy">' : '')
+                + '<span class="clip-tag">' + v.tag + '</span><span class="play"></span></span>'
+                + '<span class="clip-label">' + v.label + '</span></a>'
+              ).join('') + '</div>'
+            : '';
         screen.innerHTML =
             '<div class="screen-inner">'
             + posterHtml
@@ -412,7 +441,10 @@ function initAwards() {
             + '<p class="screen-meta">' + a.meta + '</p>'
             + '<p class="screen-desc">' + a.desc + '</p>'
             + directorsHtml
-            + '</div></div>';
+            + '</div>'
+            + photosHtml
+            + clipsHtml
+            + '</div>';
     }
 
     frames.forEach(f => {
@@ -472,6 +504,20 @@ function initYouTubeLite() {
             + '?autoplay=1&rel=0&playsinline=1" title="YouTube video player"'
             + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"'
             + ' allowfullscreen></iframe>';
+    });
+}
+
+// ---------- Click-to-play KMDB mp4 clips (loads only on click) ----------
+function initVideoLite() {
+    document.addEventListener('click', e => {
+        const trigger = e.target.closest('.vid-lite');
+        if (!trigger || trigger.classList.contains('is-playing')) return;
+        const src = trigger.dataset.src;
+        if (!src) return;
+        e.preventDefault();
+        trigger.classList.add('is-playing');
+        const thumb = trigger.querySelector('.clip-thumb');
+        thumb.innerHTML = '<video src="' + src + '" controls autoplay playsinline preload="metadata"></video>';
     });
 }
 
