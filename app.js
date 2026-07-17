@@ -13,6 +13,7 @@ function initAll() {
     initStripArrows();
     initYouTubeLite();
     initVideoLite();
+    initRadioModal();
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
@@ -280,12 +281,12 @@ const AWARDS = [
     },
     {
         festival: 'FilmFestival Cottbus',
-        title: '코트부스영화제 예술공헌상',
+        title: '코트부스영화제 예술공헌상 · 관객상',
         film: '벌이 날다 Flight of the Bee · 1999',
         poster: POSTER_BASE + '%EB%B2%8C%EC%9D%B4%20%EB%82%A0%EB%8B%A4%20%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg',
         posterAlt: '벌이 날다 포스터',
         meta: '독일 코트부스 · 1991년 창설 · 동유럽 영화 전문',
-        desc: '베를린영화제와 함께 독일이 동유럽 영화를 만나는 가장 중요한 창구. 러시아 국립영화대학(VGIK)에서 수학하며 중앙아시아의 빛과 호흡을 배운 감독의 미학이, 동유럽 영화의 본고장에서 \'예술적 공헌\'으로 공인받았다.',
+        desc: '베를린영화제와 함께 독일이 동유럽 영화를 만나는 가장 중요한 창구. 러시아 국립영화대학(VGIK)에서 수학하며 중앙아시아의 빛과 호흡을 배운 감독의 미학이, 동유럽 영화의 본고장에서 \'예술적 공헌\'으로 공인받았고, 관객상까지 더해지며 평단과 관객의 마음을 함께 얻었다.',
         directors: []
     },
     {
@@ -296,6 +297,16 @@ const AWARDS = [
         posterAlt: '벌이 날다 포스터',
         meta: '러시아 아나파 · 흑해 연안 · CIS권 대표 영화제',
         desc: '흑해의 휴양도시 아나파에서 열리는 구소련(CIS) 국가들의 대표 영화제 \'키노쇼크\'. 모스크바 유학 시절을 보낸 감독에게 이 감독상은 영화적 모국어를 배운 땅이 보낸 인정과도 같았다.',
+        directors: []
+    },
+    {
+        festival: 'Thessaloniki International Film Festival',
+        title: '테살로니키국제영화제 예술공헌상',
+        film: '괜찮아, 울지마 Let\'s Not Cry · 2001',
+        poster: POSTER_BASE + '%EA%B4%9C%EC%B0%AE%EC%95%84%20%EC%9A%B8%EC%A7%80%EB%A7%88.jpg',
+        posterAlt: '괜찮아, 울지마 포스터',
+        meta: '그리스 테살로니키 · 데뷔작 은상에 이은 두 번째 인연',
+        desc: '데뷔작 <벌이 날다>에 은상을 안겼던 테살로니키가, 두 번째 장편 <괜찮아, 울지마>에는 예술공헌상으로 화답했다. 한 신인의 발견이 우연이 아니라 작가의 탄생이었음을, 같은 무대가 두 번에 걸쳐 증명한 셈이다.',
         directors: []
     },
     {
@@ -491,19 +502,29 @@ function initStripArrows() {
 }
 
 // ---------- Click-to-play YouTube embeds (no new tab, loads only on click) ----------
+// YouTube rejects embed requests that arrive without a Referer header
+// (player error 153). Pages opened straight from the file system (file://)
+// can never send one, so there the poster links out to YouTube instead of
+// embedding. Served over http(s) — local server or GitHub Pages — the
+// explicit referrerpolicy guarantees the origin is sent and playback works.
 function initYouTubeLite() {
     document.addEventListener('click', e => {
         const trigger = e.target.closest('.yt-lite');
         if (!trigger || trigger.classList.contains('is-playing')) return;
         const id = trigger.dataset.yt;
         if (!id) return;
+        if (location.protocol === 'file:') {
+            trigger.setAttribute('target', '_blank');
+            trigger.setAttribute('rel', 'noopener');
+            return;
+        }
         e.preventDefault();
         trigger.classList.add('is-playing');
         trigger.innerHTML =
-            '<iframe src="https://www.youtube-nocookie.com/embed/' + id
+            '<iframe src="https://www.youtube.com/embed/' + id
             + '?autoplay=1&rel=0&playsinline=1" title="YouTube video player"'
             + ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"'
-            + ' allowfullscreen></iframe>';
+            + ' referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
     });
 }
 
@@ -539,5 +560,170 @@ function initFilter(filterSelector, itemSelector) {
                 item.classList.toggle('is-hidden', !show);
             });
         });
+    });
+}
+
+
+// ---------- Radio replay modal : every episode left on the cpbc podcast ----------
+// d: broadcast date · dur: running time · desc: films covered that day
+// (cpbc metadata stops listing films after mid-November 2019) · url: cpbc mp3
+const RADIO_EPISODES = [
+    { d: '2018. 12. 1', dur: '29:32', desc: '〈인히어런트 바이스〉 〈수성못〉 〈연애의 목적〉, 그리고 〈글루미 선데이〉의 음악 — 팟캐스트에 남은 가장 오래된 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_20825c25f4c2873cb799f49c6897f002-1670225361784.mp3?vod_id=C0000008481&podcast_id=P0000000001' },
+    { d: '2018. 12. 8', dur: '27:25', desc: '〈무현, 두 도시 이야기〉 〈레이디 버드〉와 독립영화 이야기.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_d4b7ab72ba62927bb15d4305a2c3d972-1670225365683.mp3?vod_id=C0000008481&podcast_id=P0000000002' },
+    { d: '2018. 12. 15', dur: '30:38', desc: '〈화차〉 〈친절한 금자씨〉 〈그날, 바다〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_a4b3d7032c2e0922aecba5f744ffe5a7-1670225368180.mp3?vod_id=C0000008481&podcast_id=P0000000003' },
+    { d: '2018. 12. 22', dur: '28:29', desc: '〈포레스트 검프〉 〈플로리다 프로젝트〉 〈퍼스트맨〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_65991b0edbd2269eb30bd64fcb4fc812-1670225371014.mp3?vod_id=C0000008481&podcast_id=P0000000004' },
+    { d: '2018. 12. 29', dur: '31:55', desc: '〈소공녀〉 〈잉여들의 히치하이킹〉 〈윈드 리버〉로 배웅한 한 해의 끝.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_92306eedd15d1c0c43554be6ebfc2b26-1670225374037.mp3?vod_id=C0000008481&podcast_id=P0000000005' },
+    { d: '2019. 1. 5', dur: '28:28', desc: '새해 첫 방송 — 음악영화 〈어거스트 러쉬〉 〈싱 스트리트〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_81ad525d255fbecdd4bb295e6e7421d7-1670225376988.mp3?vod_id=C0000008481&podcast_id=P0000000006' },
+    { d: '2019. 1. 12', dur: '26:46', desc: '〈송원〉 〈말할 수 없는 비밀〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_71c1505ee01c23d61430c844b048b57d-1670225379615.mp3?vod_id=C0000008481&podcast_id=P0000000007' },
+    { d: '2019. 1. 19', dur: '23:23', desc: '〈까밀 리와인드〉 〈투모로우〉 〈송 투 송〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_236b64060c566b7db669a0ae4b2b9875-1670225382076.mp3?vod_id=C0000008481&podcast_id=P0000000008' },
+    { d: '2019. 1. 26', dur: '29:09', desc: '〈스타 이즈 본〉 〈보헤미안 랩소디〉 — 음악이 된 영화들.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_8372bd5c806513640ee1c94ada8e896c-1670225384230.mp3?vod_id=C0000008481&podcast_id=P0000000009' },
+    { d: '2019. 2. 2', dur: '30:14', desc: '〈사랑도 통역이 되나요?〉 〈아파트 열쇠를 빌려드립니다〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_18aa6795cc58b5b03b918f5e68327be6-1670225386859.mp3?vod_id=C0000008481&podcast_id=P0000000010' },
+    { d: '2019. 2. 9', dur: '30:54', desc: '〈서치〉 〈퍼스트맨〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_845db17679b3f764b190b67dd1006032-1670225389585.mp3?vod_id=C0000008481&podcast_id=P0000000011' },
+    { d: '2019. 2. 16', dur: '31:55', desc: '왕가위의 〈중경삼림〉 〈아비정전〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_bc96041ba2f0ff2d70639feb329a6836-1670225392362.mp3?vod_id=C0000008481&podcast_id=P0000000012' },
+    { d: '2019. 2. 23', dur: '27:46', desc: '〈칠드런 오브 맨〉 〈오두막〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_66e1e7685426bcb7c2b6069971dc86e7-1670225395268.mp3?vod_id=C0000008481&podcast_id=P0000000013' },
+    { d: '2019. 3. 2', dur: '29:16', desc: '〈자이언트〉 〈리플리〉 〈젊은이의 양지〉 — 고전 할리우드의 얼굴들.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_0157c18f30028d7873b4fa7582022f11-1670225397771.mp3?vod_id=C0000008481&podcast_id=P0000000014' },
+    { d: '2019. 3. 9', dur: '26:07', desc: '〈인사이드 잡〉 〈국가부도의 날〉 〈스플릿〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_3c4662437584f9fb1e188ee890e281fa-1670225401189.mp3?vod_id=C0000008481&podcast_id=P0000000015' },
+    { d: '2019. 3. 16', dur: '27:49', desc: '〈비포 선라이즈〉 〈국화꽃 향기〉 〈와이키키 브라더스〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_c223e6dc58eb95f3a879c825af1f5ff3-1670225403911.mp3?vod_id=C0000008481&podcast_id=P0000000016' },
+    { d: '2019. 3. 23', dur: '25:57', desc: '\'사랑이 찾아온 여름\'을 주제로 한 영화와 음악.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_f748b6ae637c20206138ef0a8c20d0a6-1670225406379.mp3?vod_id=C0000008481&podcast_id=P0000000017' },
+    { d: '2019. 3. 30', dur: '33:32', desc: '나딘 라바키의 〈가버나움〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_386f93d1c64536d5c95afda274499b80-1670225408749.mp3?vod_id=C0000008481&podcast_id=P0000000018' },
+    { d: '2019. 4. 6', dur: '34:40', desc: '\'응답\'을 주제로 한 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_e4044f896631a358133265938d0190b4-1670225411776.mp3?vod_id=C0000008481&podcast_id=P0000000019' },
+    { d: '2019. 4. 13', dur: '31:35', desc: '\'삶과 죽음\'을 주제로 한 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_3ec4231ba06858895605fc4a24df7311-1670225414821.mp3?vod_id=C0000008481&podcast_id=P0000000020' },
+    { d: '2019. 4. 20', dur: '29:23', desc: '\'행복\'을 주제로 — 〈더 페이버릿: 여왕의 여자〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_8c62a7c12ee5bc525dc1840bd5bf07f3-1670225417747.mp3?vod_id=C0000008481&podcast_id=P0000000021' },
+    { d: '2019. 4. 27', dur: '35:00', desc: '〈그린 북〉 〈덤 앤 더머〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_c851af813d0b82784133de2a847be11a-1670225420471.mp3?vod_id=C0000008481&podcast_id=P0000000022' },
+    { d: '2019. 5. 4', dur: '33:13', desc: '\'헌신\'을 주제로 — 〈더 와이프〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_437330f3648211915e3c1ce858cc5ef2-1670225423804.mp3?vod_id=C0000008481&podcast_id=P0000000023' },
+    { d: '2019. 5. 11', dur: '17:14', desc: '클린트 이스트우드의 〈그랜 토리노〉 〈라스트 미션〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_569d8d020dd1615c7513d61fa96b1b90-1670225427547.mp3?vod_id=C0000008481&podcast_id=P0000000024' },
+    { d: '2019. 5. 18', dur: '17:30', desc: '\'탐욕\'을 주제로 — 〈케빈에 대하여〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_f5d0768650a6a1f7c00e98580c929217-1670225429586.mp3?vod_id=C0000008481&podcast_id=P0000000025' },
+    { d: '2019. 5. 25', dur: '18:39', desc: '\'성장\'을 주제로 — 〈보이후드〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_5842ccc5889e303c9be53a10b832027c-1670225431940.mp3?vod_id=C0000008481&podcast_id=P0000000026' },
+    { d: '2019. 6. 1', dur: '29:35', desc: '\'공감\'을 주제로 — 〈기생충〉 〈살인의 추억〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_4db295f1b65dfe44fc7db8f6ba01b113-1670225433710.mp3?vod_id=C0000008481&podcast_id=P0000000027' },
+    { d: '2019. 6. 8', dur: '21:32', desc: '\'말과 행동\'을 주제로 — 〈생일〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_2057a8c434b302a6bf9d0e545c66cb28-1670225436649.mp3?vod_id=C0000008481&podcast_id=P0000000028' },
+    { d: '2019. 6. 15', dur: '28:37', desc: '\'고독\'을 주제로 — 민병훈 감독 자신의 〈괜찮아, 울지마〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_1fc8cc29f10768f1b3c7e9385ba5a91a-1670225439371.mp3?vod_id=C0000008481&podcast_id=P0000000029' },
+    { d: '2019. 6. 22', dur: '19:34', desc: '\'공감\'을 주제로 — 〈폭스캐처〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_f7dc7dfe9cd58e1a063890dacf536e23-1670225442002.mp3?vod_id=C0000008481&podcast_id=P0000000030' },
+    { d: '2019. 6. 29', dur: '16:41', desc: '\'내일\'을 주제로 — 〈엘리자의 내일〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_74a1dff68509c19be1b5a972c0e66fba-1670225444239.mp3?vod_id=C0000008481&podcast_id=P0000000031' },
+    { d: '2019. 7. 6', dur: '26:49', desc: '\'양심\'을 주제로 — 〈암수살인〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_cf12cb2ea0fe51bf0c2546b6d1746de1-1670225445993.mp3?vod_id=C0000008481&podcast_id=P0000000032' },
+    { d: '2019. 7. 13', dur: '22:24', desc: '\'진실, 그날의 기억\'을 주제로 한 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_638be760b573c1ebee8e1ff2dd86571c-1670225464995.mp3?vod_id=C0000008481&podcast_id=P0000000040' },
+    { d: '2019. 7. 20', dur: '20:09', desc: '압바스 키아로스타미의 〈내 친구의 집은 어디인가〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_bb2864ad19dfd525d3a7c11660fa5045-1670225463059.mp3?vod_id=C0000008481&podcast_id=P0000000039' },
+    { d: '2019. 7. 27', dur: '18:27', desc: '타르코프스키의 〈희생〉 〈노스탤지어〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_d42edbab790d80d0f97a5d7708d3bc66-1670225461248.mp3?vod_id=C0000008481&podcast_id=P0000000038' },
+    { d: '2019. 8. 3', dur: '23:31', desc: '다르덴 형제의 〈로제타〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_68265df683fe43c754908d0bc2d98df2-1670225459025.mp3?vod_id=C0000008481&podcast_id=P0000000037' },
+    { d: '2019. 8. 10', dur: '22:32', desc: '〈맨체스터 바이 더 씨〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_fc62835cacd9698cfae10e475408be5e-1670225455893.mp3?vod_id=C0000008481&podcast_id=P0000000036' },
+    { d: '2019. 8. 17', dur: '25:14', desc: '라즐로 네메스의 〈사울의 아들〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_70babdfd41da7ef6b6ad45ab2a2ddd47-1670225453581.mp3?vod_id=C0000008481&podcast_id=P0000000035' },
+    { d: '2019. 8. 24', dur: '25:16', desc: '나딘 라바키의 〈가버나움〉, 다시 한번.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_6a3d193c4727709de29daa41acce20ae-1670225451119.mp3?vod_id=C0000008481&podcast_id=P0000000034' },
+    { d: '2019. 8. 31', dur: '28:51', desc: '아스가르 파르하디의 〈씨민과 나데르의 별거〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_d0eb56773a2afdcdc598c2419f46659a-1670225448460.mp3?vod_id=C0000008481&podcast_id=P0000000033' },
+    { d: '2019. 9. 7', dur: '29:03', desc: '누리 빌게 세일란의 〈우작〉 〈기후〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_dfa0e17e6b3a560d4f8cf394e57e7555-1670225471352.mp3?vod_id=C0000008481&podcast_id=P0000000042' },
+    { d: '2019. 9. 14', dur: '21:50', desc: '〈배심원들〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_7b4850aee0665f6bd501fbca2c245904-1670225467156.mp3?vod_id=C0000008481&podcast_id=P0000000041' },
+    { d: '2019. 9. 21', dur: '26:01', desc: '김윤석 감독 데뷔작 〈미성년〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_7e41d668ce54085b9bc4a966f191b2d4-1670225476140.mp3?vod_id=C0000008481&podcast_id=P0000000043' },
+    { d: '2019. 9. 28', dur: '27:40', desc: '미키 데자키의 〈주전장〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_cc682c9c42aa3216cf1c70f4172412a6-1670225494538.mp3?vod_id=C0000008481&podcast_id=P0000000047' },
+    { d: '2019. 10. 5', dur: '22:54', desc: '알리체 로르바커의 〈행복한 라짜로〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_297ed96d2b26ce2320f77f8eade44659-1670225490686.mp3?vod_id=C0000008481&podcast_id=P0000000046' },
+    { d: '2019. 10. 12', dur: '30:25', desc: '윤가은의 〈우리집〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_206f2d950c38120790902c83ef728bc4-1670225484087.mp3?vod_id=C0000008481&podcast_id=P0000000045' },
+    { d: '2019. 10. 19', dur: '26:34', desc: '알폰소 쿠아론의 〈로마〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_fec392da48904791627123af000ecc48-1670225479808.mp3?vod_id=C0000008481&podcast_id=P0000000044' },
+    { d: '2019. 10. 26', dur: '25:07', desc: '〈김복동〉 〈노무현입니다〉 〈변호인〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_eb472b296a3a8eff05a46bee29386096-1670225498877.mp3?vod_id=C0000008481&podcast_id=P0000000048' },
+    { d: '2019. 11. 2', dur: '22:56', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_58ef10f66ce68f542d358e79ec2a7c5f-1674030608654.mp3?vod_id=C0000008481&podcast_id=P0000000051' },
+    { d: '2019. 11. 9', dur: '26:40', desc: '데이비드 린의 〈닥터 지바고〉.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_fdebad5958bd827f02134215a03dd28b-1670225506947.mp3?vod_id=C0000008481&podcast_id=P0000000050' },
+    { d: '2019. 11. 16', dur: '29:04', desc: '토드 필립스의 〈조커〉, 힐두르 구드나도티르의 음악.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000008481_16b924d6d9250eb5950627698ee8ccc6-1670225502424.mp3?vod_id=C0000008481&podcast_id=P0000000049' },
+    { d: '2019. 11. 23', dur: '29:06', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_21dca7ac381cd5f71ca2dd113559166b-1674030609586.mp3?vod_id=C0000008481&podcast_id=P0000000052' },
+    { d: '2019. 11. 30', dur: '27:55', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_90089e7f641af09e1dc91d4622a26060-1674030610768.mp3?vod_id=C0000008481&podcast_id=P0000000053' },
+    { d: '2019. 12. 7', dur: '24:41', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_71e04d47545a7f11d0ec562fe2bf8098-1674030611791.mp3?vod_id=C0000008481&podcast_id=P0000000054' },
+    { d: '2019. 12. 14', dur: '28:22', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_9ae3f490136bfedb9ea015297790b583-1674030612831.mp3?vod_id=C0000008481&podcast_id=P0000000055' },
+    { d: '2019. 12. 21', dur: '22:48', desc: '성탄을 나흘 앞둔 토요일 오후의 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_03f21645fd18e766eb3f7b2b9e10ac28-1674030614861.mp3?vod_id=C0000008481&podcast_id=P0000000057' },
+    { d: '2019. 12. 28', dur: '23:49', desc: '2019년의 마지막 토요일, 한 해를 배웅한 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_ad3bbe238e5a8b1ce6fff4691c3a8b64-1674030613952.mp3?vod_id=C0000008481&podcast_id=P0000000056' },
+    { d: '2020. 1. 4', dur: '24:56', desc: '새로운 십 년을 여는 2020년 새해 첫 방송.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_5a3b5135b2ba3992845aa5c967990d53-1674030615730.mp3?vod_id=C0000008481&podcast_id=P0000000058' },
+    { d: '2020. 1. 11', dur: '25:39', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_03e33b62ab768a2f8a093b8fd7cd1cce-1674030616593.mp3?vod_id=C0000008481&podcast_id=P0000000059' },
+    { d: '2020. 1. 18', dur: '28:17', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_222c73a849066811c54b70e37cea0b13-1674030617603.mp3?vod_id=C0000008481&podcast_id=P0000000060' },
+    { d: '2020. 1. 25', dur: '26:05', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_072f65de7b674edb32430c4c8dd94489-1674030618725.mp3?vod_id=C0000008481&podcast_id=P0000000061' },
+    { d: '2020. 2. 1', dur: '26:17', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_7761e9df1654c40908594a9ccdf4e130-1674030619745.mp3?vod_id=C0000008481&podcast_id=P0000000062' },
+    { d: '2020. 2. 8', dur: '26:50', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_a1f57234ddb61502a174a5609c1b0de9-1674030620594.mp3?vod_id=C0000008481&podcast_id=P0000000063' },
+    { d: '2020. 2. 15', dur: '24:24', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_7673b85334c847ad9709e84211366019-1674030622608.mp3?vod_id=C0000008481&podcast_id=P0000000065' },
+    { d: '2020. 2. 22', dur: '24:54', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_67cec3fb0db2115a9b8598889fa95ea9-1674030621630.mp3?vod_id=C0000008481&podcast_id=P0000000064' },
+    { d: '2020. 2. 29', dur: '29:47', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_604b8685de8a30af585adb47b04f7391-1674030623607.mp3?vod_id=C0000008481&podcast_id=P0000000066' },
+    { d: '2020. 3. 7', dur: '29:07', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_7143ed36f14068ac0035fb3d6c7a6c82-1674030624654.mp3?vod_id=C0000008481&podcast_id=P0000000067' },
+    { d: '2020. 3. 14', dur: '29:25', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_f5528071dd1b58149f9d62fad7936414-1674030625724.mp3?vod_id=C0000008481&podcast_id=P0000000068' },
+    { d: '2020. 3. 21', dur: '26:49', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_bf0d125dfb0e8e584f9710a0426ffc04-1674030626840.mp3?vod_id=C0000008481&podcast_id=P0000000069' },
+    { d: '2020. 3. 28', dur: '30:05', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_e4c7e7636ed7e97abd0c88062c0a7a68-1674030627892.mp3?vod_id=C0000008481&podcast_id=P0000000070' },
+    { d: '2020. 4. 4', dur: '26:23', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_f9d72c0f11431ae231ac8cc84a7a8dcb-1674030628872.mp3?vod_id=C0000008481&podcast_id=P0000000071' },
+    { d: '2020. 4. 11', dur: '28:13', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_0495eb1ab06af4cf6c5ecc913d43c450-1674030629798.mp3?vod_id=C0000008481&podcast_id=P0000000072' },
+    { d: '2020. 4. 18', dur: '32:27', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_076a01adb9ef09f273c7f171b43ce36d-1674030631094.mp3?vod_id=C0000008481&podcast_id=P0000000073' },
+    { d: '2020. 4. 25', dur: '32:04', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_f61d643d2863f5b1fb16ba5ca5df2355-1674030632329.mp3?vod_id=C0000008481&podcast_id=P0000000074' },
+    { d: '2020. 5. 2', dur: '24:21', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_ddef3adeceedb2ca939b7a64e0344f86-1674030633526.mp3?vod_id=C0000008481&podcast_id=P0000000075' },
+    { d: '2020. 5. 9', dur: '27:47', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_aa171ec190d2b410c2856e6a53e26fd6-1674030634391.mp3?vod_id=C0000008481&podcast_id=P0000000076' },
+    { d: '2020. 5. 16', dur: '29:57', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_585dd958148c24586ed2730c6e1b2038-1674030635561.mp3?vod_id=C0000008481&podcast_id=P0000000077' },
+    { d: '2020. 5. 23', dur: '27:57', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_3727cc6eaa3a9e01447cf068de56b7e5-1674030637119.mp3?vod_id=C0000008481&podcast_id=P0000000078' },
+    { d: '2020. 5. 30', dur: '28:34', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_11059c88288d42f397a9d0f140673400-1674030640035.mp3?vod_id=C0000008481&podcast_id=P0000000079' },
+    { d: '2020. 6. 6', dur: '27:23', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_e82df15d414706709080b32172d971cb-1674030642163.mp3?vod_id=C0000008481&podcast_id=P0000000080' },
+    { d: '2020. 6. 13', dur: '26:57', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_bb4fd8a5fae85f6e33280e984af91b6d-1674030643990.mp3?vod_id=C0000008481&podcast_id=P0000000081' },
+    { d: '2020. 6. 20', dur: '23:29', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_80309ba2cbeea3129ea7095bdcdf16c6-1674030645683.mp3?vod_id=C0000008481&podcast_id=P0000000082' },
+    { d: '2020. 6. 27', dur: '27:12', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_85014597e4095adfd10c2d38f157ac10-1674030647083.mp3?vod_id=C0000008481&podcast_id=P0000000083' },
+    { d: '2020. 7. 4', dur: '24:18', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_cfdd5d6453644c7f283b8e962b460d1e-1674030648511.mp3?vod_id=C0000008481&podcast_id=P0000000084' },
+    { d: '2020. 7. 11', dur: '25:47', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_c5a373133b87c94c4e70ba2669e7d3b4-1674030649538.mp3?vod_id=C0000008481&podcast_id=P0000000085' },
+    { d: '2020. 7. 18', dur: '22:17', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_20bec7bf76551e9cbcbeb64193a1119f-1674030650768.mp3?vod_id=C0000008481&podcast_id=P0000000086' },
+    { d: '2020. 7. 25', dur: '25:43', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_24a688ed1cf76bbb2a52edcc9a1e49a8-1674030651775.mp3?vod_id=C0000008481&podcast_id=P0000000087' },
+    { d: '2020. 8. 1', dur: '23:30', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_433cc62ece17ef24b438e04fe7e36499-1674030653579.mp3?vod_id=C0000008481&podcast_id=P0000000088' },
+    { d: '2020. 8. 8', dur: '22:30', desc: '', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_930fe0178aa08d0e786e95e8734707c1-1674030654829.mp3?vod_id=C0000008481&podcast_id=P0000000089' },
+    { d: '2020. 8. 15', dur: '21:16', desc: '4년의 여정을 마무리한 고별 방송 — 마이크를 내려놓던 날.', url: 'https://podcast-aod.cpbc.co.kr/cpbfm/2023/01/C0000008481_cf449bb1080c6ed78dcb1590d26dfa05-1674030655759.mp3?vod_id=C0000008481&podcast_id=P0000000090' }
+];
+
+function initRadioModal() {
+    const modal = document.getElementById('radioModal');
+    const openBtn = document.getElementById('radioReplayBtn');
+    const list = document.getElementById('radioModalList');
+    if (!modal || !openBtn || !list) return;
+
+    let built = false;
+    function build() {
+        if (built) return;
+        built = true;
+        let html = '';
+        let year = '';
+        RADIO_EPISODES.forEach((ep, i) => {
+            const y = ep.d.slice(0, 4);
+            if (y !== year) {
+                year = y;
+                html += '<h4 class="rm-year">' + y + '</h4>';
+            }
+            html += '<div class="rm-row" data-ep="' + i + '">'
+                + '<span class="rm-date">' + ep.d + '</span>'
+                + '<span class="rm-desc">' + (ep.desc || '토요일 오후 4시의 방송분') + '</span>'
+                + '<span class="rm-dur">' + ep.dur + '</span>'
+                + '<button type="button" class="rm-play" aria-label="' + ep.d + ' 방송 재생"></button>'
+                + '<span class="rm-audio"></span>'
+                + '</div>';
+        });
+        list.innerHTML = html;
+    }
+
+    function open() {
+        build();
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        const scroller = modal.querySelector('.radio-modal-scroll');
+        if (scroller) scroller.scrollTop = 0;
+    }
+    function close() {
+        modal.hidden = true;
+        document.body.style.overflow = '';
+        modal.querySelectorAll('audio').forEach(a => a.pause());
+    }
+
+    openBtn.addEventListener('click', open);
+    modal.addEventListener('click', e => {
+        if (e.target.closest('[data-close]')) { close(); return; }
+        const btn = e.target.closest('.rm-play');
+        if (!btn) return;
+        const row = btn.closest('.rm-row');
+        const ep = RADIO_EPISODES[parseInt(row.dataset.ep, 10)];
+        if (!ep) return;
+        // One voice at a time: pause every other episode first
+        modal.querySelectorAll('audio').forEach(a => a.pause());
+        const slot = row.querySelector('.rm-audio');
+        if (!slot.querySelector('audio')) {
+            const audio = document.createElement('audio');
+            audio.controls = true;
+            audio.preload = 'none';
+            audio.src = ep.url;
+            slot.appendChild(audio);
+        }
+        row.classList.add('is-open');
+        slot.querySelector('audio').play().catch(() => {});
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !modal.hidden) close();
     });
 }
