@@ -14,6 +14,7 @@ function initAll() {
     initYouTubeLite();
     initVideoLite();
     initRadioModal();
+    initC100Layout();
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
@@ -725,5 +726,44 @@ function initRadioModal() {
     });
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && !modal.hidden) close();
+    });
+}
+
+// ---------- Cinema 100 : keep every entry exactly two lines ----------
+// Default layout stacks title over credits (one line each). When either
+// part wraps on its own — long titles, long country lists — the item is
+// switched to a flowing paragraph that fills from the first line instead.
+function initC100Layout() {
+    const items = document.querySelectorAll('.c100-item');
+    if (!items.length) return;
+
+    // Title and credits render at different font sizes, so count each
+    // span's lines against its own line-height instead of dividing the
+    // container height by a single value.
+    function lineCount(el) {
+        const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+        return Math.round(el.getBoundingClientRect().height / lineHeight);
+    }
+
+    function layout() {
+        items.forEach(item => {
+            const title = item.querySelector('.c100-title');
+            const meta = item.querySelector('.c100-meta');
+            if (!title || !meta) return;
+            item.classList.remove('c100-item--flow');
+            if (lineCount(title) + lineCount(meta) > 2) {
+                item.classList.add('c100-item--flow');
+            }
+        });
+    }
+
+    layout();
+    // Web fonts change text metrics after they swap in
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+
+    let timer;
+    window.addEventListener('resize', () => {
+        clearTimeout(timer);
+        timer = setTimeout(layout, 150);
     });
 }

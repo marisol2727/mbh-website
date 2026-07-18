@@ -1624,6 +1624,14 @@ ul { list-style: none; }
     min-height: 260px;
 }
 .expo-video .yt-lite { height: 100%; }
+/* Thumbnail embedded below the text of a regular expo card */
+.expo-video--thumb {
+    flex: none;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    margin-top: 20px;
+    overflow: hidden;
+}
 .expo-card:hover .expo-video .play {
     background: var(--gold);
     border-color: var(--gold);
@@ -1707,24 +1715,32 @@ ul { list-style: none; }
     text-align: right;
     line-height: 1.7;
 }
-/* Title and credits flow as one paragraph — the credits continue right
-   after the title, so a long credit line never breaks the column rhythm */
+/* Each entry is exactly two lines: title on the first, credits on the
+   second. When either part is too long for its own line, the item gets
+   .c100-item--flow (set by JS) and the text flows as one paragraph that
+   fills from the first line and wraps into two. */
 .c100-text {
     display: block;
     min-width: 0;
     line-height: 1.7;
 }
 .c100-title {
-    display: inline;
+    display: block;
     font-family: var(--serif-kr);
     font-size: 15.5px;
     font-weight: 500;
-    margin-right: 10px;
 }
 .c100-meta {
-    display: inline;
+    display: block;
     font-size: 12px;
     color: var(--ink-faint);
+}
+.c100-item--flow .c100-title {
+    display: inline;
+    margin-right: 10px;
+}
+.c100-item--flow .c100-meta {
+    display: inline;
 }
 .c100-note {
     margin-top: 28px;
