@@ -1704,7 +1704,13 @@ ul { list-style: none; }
     gap: 14px;
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
-    padding: 11px 0;
+    /* Fixed height so every row is identical and the three columns stay
+       aligned regardless of how long the title or credits are. Two 23px
+       lines plus 12px padding top/bottom and a 1px border leaves a little
+       room for the taller flowing entries' descenders. */
+    height: 71px;
+    box-sizing: border-box;
+    padding: 12px 0;
     border-bottom: 1px solid var(--line);
 }
 .c100-no {
@@ -1713,16 +1719,19 @@ ul { list-style: none; }
     font-size: 15px;
     color: var(--gold);
     text-align: right;
-    line-height: 1.7;
+    line-height: 23px;
 }
 /* Each entry is exactly two lines: title on the first, credits on the
    second. When either part is too long for its own line, the item gets
    .c100-item--flow (set by JS) and the text flows as one paragraph that
-   fills from the first line and wraps into two. */
+   fills from the first line and wraps into two. A fixed pixel line-height
+   (rather than a font-relative one) keeps every line the same height even
+   when a title (15.5px) and its credits (12px) share one line, so every
+   two-line entry ends up exactly the same total height and the rows line up. */
 .c100-text {
     display: block;
     min-width: 0;
-    line-height: 1.7;
+    line-height: 23px;
 }
 .c100-title {
     display: block;
@@ -1891,7 +1900,10 @@ ul { list-style: none; }
 }
 .radio-modal-foot a { color: var(--gold); }
 
-@media (max-width: 1080px) {
+/* Drop to two columns before the three-column layout gets narrow enough
+   to push the longest entries (e.g. #14) onto a third line, which would
+   overflow the fixed row height. */
+@media (max-width: 1160px) {
     .c100-list { columns: 2; }
 }
 @media (max-width: 680px) {
