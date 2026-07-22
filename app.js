@@ -278,38 +278,30 @@ function initCounters() {
         window.removeEventListener('resize', onScroll);
     }
 
-    // The old code force-started the count-up 4 seconds after page load no
-    // matter what — so if a reader lingered on the hero for a few seconds
-    // before scrolling down, the numbers had already finished counting up
-    // off-screen, and arrived already showing the final value with no
-    // animation visible. The fixes below only ever start the count-up once
-    // the numbers are actually on screen.
-    let ioAlive = false;
-    let io = null;
-    if ('IntersectionObserver' in window) {
-        io = new IntersectionObserver(entries => {
-            ioAlive = true;
-            if (entries.some(e => e.isIntersecting)) startAll();
-        }, { threshold: 0.4 });
-        nums.forEach(el => io.observe(el));
-    }
-
-    // Fallback 1: observer never delivered anything at all (broken/embedded
-    // environment) — start right away rather than waiting forever.
-    setTimeout(() => {
-        if (!ioAlive) startAll();
-    }, 800);
-
-    // Fallback 2: some mobile browsers miss intersection updates during fast
-    // scrolling. A throttled scroll/resize check starts the count-up as soon
-    // as the stats block is actually visible — never earlier.
+    // The count-up must only ever start once the numbers are actually on
+    // screen — never on a timer. (An earlier version force-started it 4s
+    // after page load regardless of scroll position, then a "fixed" version
+    // still force-started it 800ms after load if the observer hadn't
+    // reported back yet; on some phones/browsers that 800ms elapses before
+    // the observer's first callback even for a working observer, so it kept
+    // starting off-screen.) A position check — not a timer — decides
+    // whether the numbers are visible, and it is the ONLY thing that calls
+    // startAll(). IntersectionObserver, when available, just triggers that
+    // same check sooner.
     const statsBlock = nums[0].closest('.about-stats') || nums[0];
-    let lastCheck = 0;
     function check() {
         if (started) return;
         const r = statsBlock.getBoundingClientRect();
         if (r.top < window.innerHeight - 30 && r.bottom > 0) startAll();
     }
+
+    let io = null;
+    if ('IntersectionObserver' in window) {
+        io = new IntersectionObserver(check, { threshold: 0 });
+        nums.forEach(el => io.observe(el));
+    }
+
+    let lastCheck = 0;
     function onScroll() {
         const now = Date.now();
         if (now - lastCheck < 100) return;
@@ -318,6 +310,8 @@ function initCounters() {
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    // Covers the case where the stats are already in view on load (short
+    // page / tall viewport), before any scroll or observer callback fires.
     setTimeout(check, 60);
 }
 
