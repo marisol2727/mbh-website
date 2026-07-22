@@ -249,70 +249,16 @@ function initReveal() {
     setTimeout(check, 60);
 }
 
-// ---------- Animated counters (about stats) ----------
+// ---------- Stats numbers (about section) ----------
+// Previously animated as a count-up triggered by scroll position, but that
+// depended on IntersectionObserver/scroll-timing behavior that proved
+// inconsistent across phones (numbers already finished before the reader
+// scrolled there, or didn't restart correctly). Showing the final numbers
+// directly removes that failure mode entirely.
 function initCounters() {
-    const nums = [...document.querySelectorAll('.stat-num')];
-    if (!nums.length) return;
-
-    function animate(el) {
-        const target = parseInt(el.dataset.count, 10);
-        const t0 = performance.now();
-        const DUR = 1600;
-        (function step(now) {
-            const p = Math.min((now - t0) / DUR, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            el.textContent = Math.round(target * eased);
-            if (p < 1) requestAnimationFrame(step);
-        })(t0);
-        // Guarantee the final value even if rAF is throttled
-        setTimeout(() => { el.textContent = target; }, DUR + 200);
-    }
-
-    let started = false;
-    function startAll() {
-        if (started) return;
-        started = true;
-        nums.forEach(animate);
-        io && io.disconnect();
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
-    }
-
-    // The count-up must only ever start once the numbers are actually on
-    // screen — never on a timer. (An earlier version force-started it 4s
-    // after page load regardless of scroll position, then a "fixed" version
-    // still force-started it 800ms after load if the observer hadn't
-    // reported back yet; on some phones/browsers that 800ms elapses before
-    // the observer's first callback even for a working observer, so it kept
-    // starting off-screen.) A position check — not a timer — decides
-    // whether the numbers are visible, and it is the ONLY thing that calls
-    // startAll(). IntersectionObserver, when available, just triggers that
-    // same check sooner.
-    const statsBlock = nums[0].closest('.about-stats') || nums[0];
-    function check() {
-        if (started) return;
-        const r = statsBlock.getBoundingClientRect();
-        if (r.top < window.innerHeight - 30 && r.bottom > 0) startAll();
-    }
-
-    let io = null;
-    if ('IntersectionObserver' in window) {
-        io = new IntersectionObserver(check, { threshold: 0 });
-        nums.forEach(el => io.observe(el));
-    }
-
-    let lastCheck = 0;
-    function onScroll() {
-        const now = Date.now();
-        if (now - lastCheck < 100) return;
-        lastCheck = now;
-        check();
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    // Covers the case where the stats are already in view on load (short
-    // page / tall viewport), before any scroll or observer callback fires.
-    setTimeout(check, 60);
+    document.querySelectorAll('.stat-num').forEach(el => {
+        el.textContent = el.dataset.count;
+    });
 }
 
 // ---------- Awards : film strip → screen projection ----------
