@@ -274,17 +274,51 @@ function initCounters() {
         started = true;
         nums.forEach(animate);
         io && io.disconnect();
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
     }
 
+    // The old code force-started the count-up 4 seconds after page load no
+    // matter what — so if a reader lingered on the hero for a few seconds
+    // before scrolling down, the numbers had already finished counting up
+    // off-screen, and arrived already showing the final value with no
+    // animation visible. The fixes below only ever start the count-up once
+    // the numbers are actually on screen.
+    let ioAlive = false;
     let io = null;
     if ('IntersectionObserver' in window) {
         io = new IntersectionObserver(entries => {
+            ioAlive = true;
             if (entries.some(e => e.isIntersecting)) startAll();
         }, { threshold: 0.4 });
         nums.forEach(el => io.observe(el));
     }
-    // Fallback: make sure the numbers are filled in regardless
-    setTimeout(startAll, 4000);
+
+    // Fallback 1: observer never delivered anything at all (broken/embedded
+    // environment) — start right away rather than waiting forever.
+    setTimeout(() => {
+        if (!ioAlive) startAll();
+    }, 800);
+
+    // Fallback 2: some mobile browsers miss intersection updates during fast
+    // scrolling. A throttled scroll/resize check starts the count-up as soon
+    // as the stats block is actually visible — never earlier.
+    const statsBlock = nums[0].closest('.about-stats') || nums[0];
+    let lastCheck = 0;
+    function check() {
+        if (started) return;
+        const r = statsBlock.getBoundingClientRect();
+        if (r.top < window.innerHeight - 30 && r.bottom > 0) startAll();
+    }
+    function onScroll() {
+        const now = Date.now();
+        if (now - lastCheck < 100) return;
+        lastCheck = now;
+        check();
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(check, 60);
 }
 
 // ---------- Awards : film strip → screen projection ----------
