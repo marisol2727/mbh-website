@@ -182,28 +182,71 @@ function initReveal() {
     const items = [...document.querySelectorAll('.reveal')];
     if (!items.length || !('IntersectionObserver' in window)) return;
 
+    const pending = new Set(items);
+    const reveal = el => {
+        el.classList.add('is-visible');
+        pending.delete(el);
+        io.unobserve(el);
+    };
+
     let ioAlive = false;
+    // threshold: 0 — reveal as soon as ANY part of the element touches the
+    // viewport. A positive threshold like 0.1 can never be reached by an
+    // element taller than ~10x the viewport (e.g. the 100-film list on a
+    // phone, ~7000px tall), which left it stuck at opacity:0 — a black
+    // screen on shorter phones. Zero works for elements of any height.
     const io = new IntersectionObserver(entries => {
         ioAlive = true;
         entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
-                io.unobserve(e.target);
-            }
+            if (e.isIntersecting) reveal(e.target);
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
 
     // Enable the hidden state, then observe. A working observer always
     // delivers an initial batch of entries right away.
     document.documentElement.classList.add('js-reveal');
     items.forEach(el => io.observe(el));
 
+    // Fallback 1: if the observer never delivers any entry at all (broken /
+    // embedded environments), roll the hidden state back so nothing stays
+    // invisible.
     setTimeout(() => {
         if (!ioAlive) {
             document.documentElement.classList.remove('js-reveal');
             io.disconnect();
         }
     }, 800);
+
+    // Fallback 2: some mobile browsers fire the initial batch but then miss
+    // updates during fast momentum scrolling, which can leave sections below
+    // the fold hidden. A scroll/resize check reveals anything whose top has
+    // entered the viewport, so content can never stay black — while still
+    // animating in as the reader scrolls to it. Throttled by timestamp rather
+    // than requestAnimationFrame, which is paused in background tabs and some
+    // low-power modes (where rAF-based reveals would never run).
+    let lastCheck = 0;
+    function check() {
+        if (!pending.size) {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+            return;
+        }
+        const vh = window.innerHeight;
+        [...pending].forEach(el => {
+            const r = el.getBoundingClientRect();
+            if (r.top < vh - 30 && r.bottom > 0) reveal(el);
+        });
+    }
+    function onScroll() {
+        const now = Date.now();
+        if (now - lastCheck < 100) return;
+        lastCheck = now;
+        check();
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // One check after layout settles, in case anything is already in view.
+    setTimeout(check, 60);
 }
 
 // ---------- Animated counters (about stats) ----------
